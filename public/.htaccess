@@ -1,0 +1,36 @@
+# Disable directory browsing
+Options -Indexes
+
+# ----------------------------------------------------------------------
+# Rewrite engine
+# ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+	Options +FollowSymlinks
+	RewriteEngine On
+
+	# Falls die App in einem Unterordner liegt, hier anpassen:
+	# RewriteBase /
+
+	# Authorization-Header durchreichen (wichtig für Bearer-Token!)
+	RewriteCond %{HTTP:Authorization} .
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+	# 1) API & Foto-Auslieferung über CodeIgniter (Front-Controller)
+	RewriteRule ^(api|media)(/.*)?$ index.php [L,QSA]
+
+	# 2) Vorhandene Dateien/Verzeichnisse (Assets, Icons, sw.js …) direkt ausliefern
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^ - [L]
+
+	# 3) Alle übrigen Routen an die Single-Page-App (React Router)
+	RewriteRule ^ index.html [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 index.php
+</IfModule>
+
+# Disable server signature start
+ServerSignature Off
+# Disable server signature end
