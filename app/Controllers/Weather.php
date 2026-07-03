@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\ResponseInterface;
+
 class Weather extends BaseController
 {
     private const DEFAULT_LOCATION = [
@@ -12,39 +14,43 @@ class Weather extends BaseController
     ];
 
     /**
-     * GET /weather
-     * Shows current conditions and a 7-day forecast.
-     * Optional ?city=... query param searches another location,
-     * otherwise Frankfurt is used.
+     * GET /api/weather[?city=...]
+     * Returns current conditions and a 7-day forecast as JSON.
+     * Defaults to Frankfurt; ?city=... resolves another location
+     * via the Open-Meteo geocoding API.
      */
-    public function index(): string
+    public function index(): ResponseInterface
     {
-        $city  = trim((string) $this->request->getGet('city'));
-        $error = null;
+        $city = trim((string) $this->request->getGet('city'));
 
         $location = self::DEFAULT_LOCATION;
 
         if ($city !== '') {
             $resolved = $this->resolveCity($city);
 
-            if ($resolved !== null) {
-                $location = $resolved;
-            } else {
-                $error = sprintf('Could not find "%s" — showing %s instead.', esc($city), self::DEFAULT_LOCATION['name']);
+            if ($resolved === null) {
+                return $this->response->setStatusCode(404)->setJSON([
+                    'status'  => 'error',
+                    'message' => sprintf('Could not find "%s".', $city),
+                ]);
             }
+
+            $location = $resolved;
         }
 
         $forecast = $this->fetchForecast($location['latitude'], $location['longitude']);
 
         if ($forecast === null) {
-            $error = 'The weather service is currently unavailable. Please try again later.';
+            return $this->response->setStatusCode(502)->setJSON([
+                'status'  => 'error',
+                'message' => 'The weather service is currently unavailable. Please try again later.',
+            ]);
         }
 
-        return view('weather', [
+        return $this->response->setJSON([
+            'status'   => 'ok',
             'location' => $location,
             'forecast' => $forecast,
-            'city'     => $city,
-            'error'    => $error,
         ]);
     }
 
