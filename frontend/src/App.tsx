@@ -1,12 +1,7 @@
-import './App.css'
-import { BackendTest } from "@/components/BackendTest"
+import { HomePage } from '@/pages/home/HomePage'
 
 function App() {
-  return (
-    <main className="min-h-svh bg-zinc-50">
-      <BackendTest />
-    </main>
-  )
+  return <HomePage />
 }
 
 export default App
