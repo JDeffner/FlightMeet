@@ -19,4 +19,12 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // Von der shadcn-CLI generierte Komponenten exportieren auch Varianten
+    // (cva) — Fast-Refresh-Warnung dort nicht sinnvoll.
+    files: ['src/components/ui/**/*.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])
