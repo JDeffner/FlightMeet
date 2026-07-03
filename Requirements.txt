@@ -1,0 +1,120 @@
+
+In dieser Übung entwickeln Sie einen Prototyp für eine Community-Plattform für
+Gleitschirmfliegerinnen und Gleitschirmflieger.
+Die Plattform trägt den Namen: FlightMeet
+Über FlightMeet können Pilotinnen und Piloten:
+• Flugtreffen finden und erstellen,
+• sich zu gemeinsamen Flugtagen verabreden,
+• einfache Nachrichten austauschen.
+
+Die Aufgabe wird in zwei Varianten umgesetzt:
+Technologie
+React und CodeIgniter 4 
+ 
+Architektur
+interaktives Frontend mit
+clientseitigem State
+
+Teil 1: Umsetzung
+Aufgabe 1: React-Projekt mit Vite erstellen
+Arbeitsschritte
+1. Installieren Sie Node.js für Ihr Betriebssystem. Empfohlen wird die LTS-Version.
+2. Prüfen Sie im Terminal, ob Node.js und npm korrekt installiert wurden:
+node -v
+npm -v
+3. Erstellen Sie ein neues React-Projekt:
+npm create vite@latest flightmeet-react -- --template react
+4. Wechseln Sie in das Projektverzeichnis:
+cd flightmeet-react
+5. Installieren Sie die Abhängigkeiten:
+npm install
+6. Starten Sie den Entwicklungsserver:
+npm run dev
+7. Öffnen Sie die angezeigte lokale URL im Browser.
+Abbildung 1: Startseite nach erfolgreicher Installation
+Fortgeschrittene Webentwicklung Sommer 2026
+Aufgabe 2: Startseite
+Erstellen Sie eine Startseite für FlightMeet.
+Die Startseite soll kurz erklären, was die Plattform macht.
+Sie soll mindestens folgende Elemente enthalten:
+• Name der Plattform
+• kurze Beschreibung
+• Link oder Button zu den Flugtreffen
+• Link oder Button zu den Gruppen
+Aufgabe 3: Navigation
+Erstellen Sie eine Navigation mit folgenden Menüpunkten:
+• Home
+• Flugtreffen
+• Gruppen
+• Chat
+React
+Die Navigation soll mit React Router funktionieren. Beim Klick auf einen Menüpunkt soll keine
+komplette Seite neu geladen werden.
+CodeIgniter 4
+Die Navigation soll über klassische Links auf die entsprechenden Routen führen. Beim Klick wird
+eine neue serverseitig gerenderte Seite geladen.
+Aufgabe 4: Flugtreffen anzeigen
+Erstellen Sie eine Übersicht aller Flugtreffen.
+Jedes Flugtreffen soll als Karte oder übersichtliche Tabelle angezeigt werden.
+Jede Karte enthält:
+• Titel
+• Flugspot
+• Region
+• Datum
+• Uhrzeit
+• Erfahrungslevel
+• Anzahl der Teilnehmenden
+Fortgeschrittene Webentwicklung Sommer 2026
+• maximale Teilnehmerzahl
+• Status
+Aufgabe 4: Suche und Filter
+Ergänzen Sie eine Suche und mindestens zwei Filter.
+Die Suche soll berücksichtigen:
+• Titel
+• Flugspot
+• Region
+• Beschreibung
+Die Filter sollen mindestens enthalten:
+• Region
+• Erfahrungslevel
+Aufgabe 5: Detailansicht eines Flugtreffens
+Beim Klick auf ein Flugtreffen sollen weitere Informationen sichtbar werden.
+Die Detailansicht enthält:
+• Titel
+• Flugspot
+• Region
+• Datum und Uhrzeit
+• Beschreibung
+• Erfahrungslevel
+• Teilnehmerliste
+• freie Plätze
+• Button „Teilnehmen“
+• Button „Zurück“
+Aufgabe 6: An Flugtreffen teilnehmen oder absagen
+Nutzerinnen und Nutzer sollen an einem Flugtreffen teilnehmen oder die Teilnahme
+zurücknehmen können.
+Funktionalität
+Nach dem Klick auf „Teilnehmen“ soll:
+• die Teilnehmerzahl steigen,
+• der Button zu „Absagen“ wechseln,
+• eine Erfolgsmeldung angezeigt werden.
+Fortgeschrittene Webentwicklung Sommer 2026
+Wenn das Treffen voll ist, soll keine Teilnahme möglich sein.
+Aufgabe 7: Neues Flugtreffen erstellen
+Erstellen Sie ein Formular zum Anlegen eines neuen Flugtreffens.
+Das Formular enthält mindestens:
+• Titel
+• Flugspot
+• Region
+• Datum
+• Uhrzeit
+• Erfahrungslevel
+• maximale Teilnehmerzahl
+• Beschreibung
+Aufgabe 9: Einfacher Gruppenchat
+Erstellen Sie eine einfache Chatansicht.
+Die Chatansicht enthält:
+• Liste vorhandener Nachrichten
+• Eingabefeld für eine neue Nachricht
+• Button „Senden“
+• Anzeige der neuen Nachricht
