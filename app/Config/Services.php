@@ -29,4 +29,55 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    /**
+     * CURLRequest client preconfigured for the Open-Meteo forecast API.
+     *
+     * Usage: service('openMeteo')->get('v1/forecast', ['query' => [...]]);
+     *
+     * @return \CodeIgniter\HTTP\CURLRequest
+     */
+    public static function openMeteo(bool $getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('openMeteo');
+        }
+
+        // getShared: false — the framework's shared curlrequest instance would
+        // otherwise be reused across clients, clobbering the baseURI.
+        return static::curlrequest(
+            [
+                'baseURI'     => 'https://api.open-meteo.com/',
+                'timeout'     => 10,
+                'http_errors' => false,
+            ],
+            null,
+            null,
+            false,
+        );
+    }
+
+    /**
+     * CURLRequest client preconfigured for the Open-Meteo geocoding API
+     * (resolves city names to coordinates).
+     *
+     * @return \CodeIgniter\HTTP\CURLRequest
+     */
+    public static function openMeteoGeocoding(bool $getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('openMeteoGeocoding');
+        }
+
+        return static::curlrequest(
+            [
+                'baseURI'     => 'https://geocoding-api.open-meteo.com/',
+                'timeout'     => 10,
+                'http_errors' => false,
+            ],
+            null,
+            null,
+            false,
+        );
+    }
 }
