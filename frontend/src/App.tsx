@@ -1,12 +1,19 @@
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router'
+import './App.css'
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '@/lib/auth'
 import { SiteHeader } from '@/components/SiteHeader'
 import { RequireAdmin } from '@/components/RequireAdmin'
-import { HomePage } from '@/pages/HomePage'
+import { HomePage } from '@/pages/home/HomePage'
+import { WeatherPage } from '@/pages/WeatherPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { AdminDashboardPage } from '@/pages/AdminDashboardPage'
 
-function Layout() {
+// BASE_URL is '/public/' in production builds and '/' in dev (see vite.config.ts).
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+// Gemeinsame Kopfzeile für die Auth-/Admin-Seiten. Die Marketing-Landingpage
+// (FlightMeet) und /weather bleiben eigenständig mit ihrem eigenen Layout.
+function AppChrome() {
   return (
     <div className="min-h-svh bg-background text-foreground">
       <SiteHeader />
@@ -19,23 +26,27 @@ function Layout() {
 
 function App() {
   return (
-    // BASE_URL: '/' im Dev-Server, '/public/' im Produktions-Build
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename={basename}>
       <AuthProvider>
         <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="login" element={<LoginPage />} />
+          {/* Eigenständige Seiten (eigenes Layout) */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/weather" element={<WeatherPage />} />
+
+          {/* Auth-/Admin-Bereich mit gemeinsamer Kopfzeile */}
+          <Route element={<AppChrome />}>
+            <Route path="/login" element={<LoginPage />} />
             <Route
-              path="admin/dashboard"
+              path="/admin/dashboard"
               element={
                 <RequireAdmin>
                   <AdminDashboardPage />
                 </RequireAdmin>
               }
             />
-            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -9,11 +9,10 @@ export default defineConfig(({ command, mode }) => {
   // Im Dev-Server (vite serve) bleibt sie unter / erreichbar.
   const base = command === 'build' ? '/public/' : '/'
 
-  // Backend-Adresse für den Dev-Proxy. Überschreibbar per Umgebungsvariable
-  // oder .env.local (VITE_API_TARGET=http://localhost:8082), z.B. wenn 8080
-  // schon von einem anderen Projekt belegt ist.
+  // Backend-Adresse für den Dev-Proxy; per CI_BACKEND_URL (z. B. in .env.local)
+  // überschreibbar, falls Port 8080 belegt ist.
   const env = loadEnv(mode, __dirname, '')
-  const apiTarget = process.env.VITE_API_TARGET ?? env.VITE_API_TARGET ?? 'http://localhost:8080'
+  const backend = env.CI_BACKEND_URL ?? 'http://localhost:8080'
 
   return {
     base,
@@ -30,8 +29,8 @@ export default defineConfig(({ command, mode }) => {
       // PORT wird z.B. von Tooling gesetzt; Standard bleibt 5173.
       port: Number(process.env.PORT) || 5173,
       proxy: {
-        '/api': apiTarget,
-        '/media': apiTarget,
+        '/api': backend,
+        '/media': backend,
       },
     },
     resolve: {

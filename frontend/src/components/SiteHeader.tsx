@@ -1,5 +1,4 @@
-import { Link, NavLink } from 'react-router'
-import { useNavigate } from 'react-router'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { ShieldCheckIcon, SignOutIcon } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'

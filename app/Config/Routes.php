@@ -14,6 +14,7 @@ $routes->get('/', 'Home::index');
 $routes->group('api', static function ($routes) {
     $routes->get('ping', 'Api::ping');
     $routes->post('echo', 'Api::echoData');
+    $routes->get('weather', 'Weather::index');
 
     // Authentication (session-based, JSON)
     $routes->group('auth', static function ($routes) {
