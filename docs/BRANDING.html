@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FlightMeet — Brand Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Sunset core */
+    --accent: #e8641f;      /* Sunset Orange — the brand */
+    --ember: #b8430a;       /* Ember — deep burnt orange */
+    --ink: #2b1608;         /* Cocoa Ink — text & dark ground */
+    --bark: #3a2214;        /* Bark — secondary dark */
+    /* Warm lights */
+    --paper: #faf1e6;       /* Paper Cream — page ground */
+    --warm-white: #fff6ec;  /* Warm White — on-dark text */
+    --candle: #fff3d2;      /* Candle — soft highlight */
+    /* Golden hour */
+    --gold: #ffb35c;
+    --gold-soft: #ffd9a8;
+    --gold-pale: #ffe9b0;
+    /* Support */
+    --meadow: #2e7d46;      /* Meadow — "open"/go signal */
+    --muted: #5a3a20;       /* Muted body brown */
+    --muted-2: #7a5636;
+
+    --display: 'Bricolage Grotesque', sans-serif;
+    --body: 'Instrument Sans', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+
+    --maxw: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--accent); color: var(--warm-white); }
+
+  h1, h2, h3, h4 { font-family: var(--display); letter-spacing: -0.02em; margin: 0; }
+  p { margin: 0 0 1em; }
+  code { font-family: var(--mono); font-size: 0.85em; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(32px, 6vh, 72px) 0 clamp(48px, 8vh, 96px);
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 118%, rgba(255,247,218,0.95) 0%, rgba(255,204,130,0.6) 40%, transparent 72%),
+      linear-gradient(180deg, var(--paper) 0%, #ffe3b4 34%, #f8a85c 64%, var(--accent) 86%, var(--ember) 100%);
+    overflow: hidden;
+  }
+  .cover::after {
+    content: "";
+    position: absolute; left: 50%; bottom: -46%;
+    width: 130%; aspect-ratio: 1; transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 50%, var(--gold-pale) 0%, var(--gold) 42%, var(--accent) 70%, transparent 72%);
+    opacity: 0.55; filter: blur(2px); pointer-events: none;
+  }
+  .cover .wrap { position: relative; z-index: 2; }
+  .cover-kicker {
+    font-family: var(--display); font-weight: 600; font-size: 14px;
+    letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink);
+    opacity: 0.7; margin-bottom: 22px;
+  }
+  .cover-logo { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em;
+    font-size: clamp(64px, 13vw, 176px); line-height: 0.9; }
+  .cover-logo .f { color: var(--ink); }
+  .cover-logo .m { color: var(--warm-white); text-shadow: 0 2px 30px rgba(58,34,20,0.25); }
+  .cover-sub { margin-top: 22px; max-width: 42ch; font-size: clamp(17px, 1.6vw, 21px);
+    color: var(--bark); font-weight: 500; }
+  .cover-meta { margin-top: 30px; display: flex; gap: 26px; flex-wrap: wrap;
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 600; color: var(--bark); opacity: 0.8; }
+
+  /* ---------- Section scaffolding ---------- */
+  section { padding: clamp(56px, 9vh, 104px) 0; }
+  section:nth-of-type(even) { background: linear-gradient(180deg, rgba(255,246,236,0.5), rgba(255,246,236,0)); }
+  .num {
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.1em; margin-bottom: 10px; display: block;
+  }
+  .sec-title { font-weight: 800; font-size: clamp(30px, 4.2vw, 52px); line-height: 1.02; }
+  .sec-intro { margin-top: 16px; max-width: 60ch; color: var(--muted); font-size: 18px; }
+  .rule { height: 1px; border: 0; background: linear-gradient(90deg, rgba(43,22,8,0.2), transparent); margin: 0; }
+
+  .grid { display: grid; gap: 22px; margin-top: 40px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 820px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--warm-white);
+    border: 1px solid rgba(43,22,8,0.1);
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: 0 14px 40px rgba(43,22,8,0.06);
+  }
+  .card h3 { font-size: 21px; font-weight: 700; margin-bottom: 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .eyebrow { font-family: var(--display); font-weight: 600; font-size: 12px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+
+  /* ---------- Essence strip ---------- */
+  .essence { background: var(--ink); color: var(--warm-white); border-radius: 28px;
+    padding: clamp(32px, 5vw, 56px); margin-top: 40px; }
+  .essence .lead { font-family: var(--display); font-weight: 600; font-size: clamp(24px, 3.4vw, 40px);
+    line-height: 1.14; letter-spacing: -0.02em; max-width: 22ch; }
+  .essence .lead em { color: var(--gold); font-style: normal; }
+  .pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 36px; }
+  @media (max-width: 820px) { .pillars { grid-template-columns: 1fr; } }
+  .pillar { border-top: 2px solid var(--accent); padding-top: 14px; }
+  .pillar b { font-family: var(--display); font-size: 19px; display: block; margin-bottom: 4px; }
+  .pillar span { color: rgba(255,246,236,0.7); font-size: 15px; }
+
+  /* ---------- Voice tables ---------- */
+  .voice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(43,22,8,0.12); margin-top: 18px; }
+  @media (max-width: 820px) { .voice-row { grid-template-columns: 1fr; } }
+  .voice-cell { padding: 20px 22px; }
+  .voice-do { background: rgba(46,125,70,0.08); }
+  .voice-dont { background: rgba(184,67,10,0.07); border-left: 1px solid rgba(43,22,8,0.1); }
+  .voice-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 8px; }
+  .voice-do .voice-tag { color: var(--meadow); }
+  .voice-dont .voice-tag { color: var(--ember); }
+  .voice-cell p { margin: 0; font-size: 16px; }
+  .voice-quote { font-family: var(--display); font-weight: 500; color: var(--ink); }
+
+  /* ---------- Color ---------- */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-top: 36px; }
+  .sw { border-radius: 18px; overflow: hidden; border: 1px solid rgba(43,22,8,0.1); background: var(--warm-white); }
+  .sw-chip { height: 92px; display: flex; align-items: flex-end; padding: 12px; }
+  .sw-body { padding: 12px 14px 16px; }
+  .sw-name { font-family: var(--display); font-weight: 700; font-size: 16px; }
+  .sw-hex { font-family: var(--mono); font-size: 12.5px; color: var(--muted-2); text-transform: uppercase; }
+  .sw-use { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .sw-chip .ratio { font-family: var(--mono); font-size: 11px; padding: 3px 7px; border-radius: 6px;
+    background: rgba(255,255,255,0.85); color: var(--ink); font-weight: 600; }
+  .sw-chip .ratio.on-dark { background: rgba(0,0,0,0.35); color: #fff; }
+
+  /* ---------- Type ---------- */
+  .type-spec { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 22px; margin-top: 8px;
+    font-family: var(--mono); font-size: 12.5px; color: var(--muted-2); }
+  .type-spec b { color: var(--ink); font-family: var(--body); font-weight: 600; }
+  .type-sample { margin-top: 14px; color: var(--ink); }
+  .scale-row { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px dashed rgba(43,22,8,0.15); }
+  .scale-row .lbl { font-family: var(--mono); font-size: 11.5px; color: var(--muted-2); width: 130px; flex: none; }
+
+  /* ---------- Logo ---------- */
+  .logo-demo { display: flex; align-items: center; justify-content: center; height: 150px; border-radius: 18px; }
+  .logo-lockup { font-family: var(--display); font-weight: 800; letter-spacing: -0.03em; font-size: 40px; }
+  .logo-lockup .f { color: var(--ink); }
+  .logo-lockup .m { color: var(--accent); }
+  .on-dark { background: var(--ink); }
+  .on-dark .logo-lockup .f { color: var(--warm-white); }
+  .on-accent { background: var(--accent); }
+  .on-accent .logo-lockup .f { color: var(--warm-white); }
+  .on-accent .logo-lockup .m { color: var(--ink); }
+  .misuse { position: relative; }
+  .misuse::before { content: "✕"; position: absolute; top: 10px; right: 12px; color: var(--ember);
+    font-weight: 700; font-size: 18px; }
+
+  /* ---------- Components ---------- */
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--accent);
+    color: var(--warm-white); font-family: var(--body); font-weight: 600; font-size: 16px;
+    padding: 15px 28px; border-radius: 999px; border: 0; text-decoration: none;
+    box-shadow: 0 12px 30px rgba(232,100,31,0.34); cursor: pointer; }
+  .btn-ghost { display: inline-flex; align-items: center; background: transparent; color: var(--ink);
+    font-family: var(--body); font-weight: 600; font-size: 16px; padding: 15px 28px;
+    border-radius: 999px; border: 1.5px solid rgba(43,22,8,0.35); text-decoration: none; cursor: pointer; }
+  .pill { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px; display: inline-block; }
+  .pill-open { background: rgba(46,125,70,0.15); color: var(--meadow); border: 1px solid rgba(46,125,70,0.4); }
+  .pill-joined { background: var(--gold-soft); color: #5c3512; }
+  .pill-full { background: rgba(43,22,8,0.12); color: var(--ink); }
+  .comp-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 18px; }
+  .ticker-demo { background: var(--accent); color: var(--warm-white); font-family: var(--display);
+    font-weight: 600; padding: 14px 20px; border-radius: 12px; transform: rotate(-1.2deg);
+    overflow: hidden; white-space: nowrap; margin-top: 24px; }
+
+  .token-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+  .token-table th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted-2); padding: 8px 12px; border-bottom: 2px solid rgba(43,22,8,0.14); }
+  .token-table td { padding: 10px 12px; border-bottom: 1px solid rgba(43,22,8,0.08); vertical-align: top; }
+  .token-table code { color: var(--ember); }
+
+  .chip-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip-list span { font-size: 13px; background: rgba(43,22,8,0.06); border: 1px solid rgba(43,22,8,0.1);
+    padding: 5px 12px; border-radius: 999px; }
+
+  footer.doc { background: var(--ink); color: rgba(255,243,210,0.6); padding: 48px 0; margin-top: 0; }
+  footer.doc .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 18px; align-items: center; }
+  footer.doc .fl { font-family: var(--display); font-weight: 800; font-size: 22px; }
+  footer.doc .fl .f { color: var(--candle); } footer.doc .fl .m { color: var(--accent); }
+
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 34px; }
+  .toc a { font-size: 13px; text-decoration: none; color: var(--bark); background: rgba(255,246,236,0.7);
+    border: 1px solid rgba(43,22,8,0.12); padding: 7px 14px; border-radius: 999px; font-weight: 500; }
+  .toc a:hover { background: var(--accent); color: var(--warm-white); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<header class="cover">
+  <div class="wrap">
+    <div class="cover-kicker">Brand Guidelines · v1.0</div>
+    <div class="cover-logo"><span class="f">Flight</span><span class="m">Meet</span></div>
+    <p class="cover-sub">The golden-hour community for paraglider pilots. This book defines how FlightMeet looks, sounds, and behaves — so every meet, message, and forecast feels like the same sky.</p>
+    <div class="cover-meta">
+      <span>Find · Plan · Fly</span>
+      <span>For pilots, by pilots</span>
+      <span>Team 11</span>
+    </div>
+    <nav class="toc">
+      <a href="#story">01 Story</a>
+      <a href="#essence">02 Essence</a>
+      <a href="#audience">03 Audience</a>
+      <a href="#voice">04 Voice &amp; Tone</a>
+      <a href="#messaging">05 Messaging</a>
+      <a href="#logo">06 Logo</a>
+      <a href="#color">07 Color</a>
+      <a href="#type">08 Typography</a>
+      <a href="#imagery">09 Imagery</a>
+      <a href="#motion">10 Motion</a>
+      <a href="#components">11 Components</a>
+      <a href="#surfaces">12 Surfaces</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ 01 STORY ============ -->
+<section id="story">
+  <div class="wrap">
+    <span class="num">01 — Brand Story</span>
+    <h2 class="sec-title">A sky is better shared.</h2>
+    <p class="sec-intro">Flying alone is a hobby. Flying together is a community. FlightMeet exists so a pilot never has to guess where the good air is, who's going, or whether tomorrow will fly. It turns scattered pilots into a scene — one meet at a time.</p>
+
+    <div class="grid g3">
+      <div class="card">
+        <div class="eyebrow">The problem</div>
+        <h3>Good days go unflown</h3>
+        <p>Perfect conditions arrive and pilots miss them — no plan, no group, no read on the weather until it's too late.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">The idea</div>
+        <h3>One place to gather</h3>
+        <p>Discover flying meets, judge the conditions, commit with a tap, and coordinate with the people who'll be on the hill beside you.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">The promise</div>
+        <h3>Take off together</h3>
+        <p>Less logistics, more airtime. FlightMeet handles the finding and planning so pilots can focus on the flying.</p>
+      </div>
+    </div>
+
+    <div class="essence" id="mission">
+      <p class="lead">We help pilots turn a good forecast into a <em>shared flying day</em> — find it, plan it, fly it.</p>
+      <div class="pillars">
+        <div class="pillar"><b>Mission</b><span>Make it effortless for pilots to meet, plan, and fly together — safely and in the right air.</span></div>
+        <div class="pillar"><b>Vision</b><span>Every soarable day has a meet on it, and no pilot flies alone unless they choose to.</span></div>
+        <div class="pillar"><b>Position</b><span>Not a social network, not a weather app — the place where flying plans actually happen.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 02 ESSENCE / PERSONALITY ============ -->
+<section id="essence">
+  <div class="wrap">
+    <span class="num">02 — Brand Essence &amp; Personality</span>
+    <h2 class="sec-title">Warm, capable, and always looking up.</h2>
+    <p class="sec-intro">FlightMeet feels like golden hour on the hill: warm light, calm confidence, good company. It's the friend who already checked the wind and saved you a spot.</p>
+
+    <div class="grid g4">
+      <div class="card"><div class="eyebrow">Trait 01</div><h3>Grounded</h3><p>Plain, practical, safety-minded. We respect that flying is real.</p></div>
+      <div class="card"><div class="eyebrow">Trait 02</div><h3>Warm</h3><p>Sunset-hued and welcoming. Never cold, corporate, or clinical.</p></div>
+      <div class="card"><div class="eyebrow">Trait 03</div><h3>Energetic</h3><p>Motion, momentum, lift. We move like thermals — smooth, rising.</p></div>
+      <div class="card"><div class="eyebrow">Trait 04</div><h3>Dependable</h3><p>Clear counts, honest status, no surprises. Trust is the airframe.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:22px">
+      <div class="card">
+        <div class="eyebrow">We are</div>
+        <div class="chip-list">
+          <span>a fellow pilot</span><span>calm under pressure</span><span>generous with a spot</span>
+          <span>golden hour</span><span>plain-spoken</span><span>safety-first</span><span>optimistic</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">We are not</div>
+        <div class="chip-list">
+          <span>a hype machine</span><span>a data dashboard</span><span>a gatekeeper</span>
+          <span>jargon-heavy</span><span>neon &amp; loud</span><span>reckless</span><span>corporate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 03 AUDIENCE ============ -->
+<section id="audience">
+  <div class="wrap">
+    <span class="num">03 — Who We Serve</span>
+    <h2 class="sec-title">Pilots first — every one of them.</h2>
+    <p class="sec-intro">The whole product is built around the pilot deciding, in one sitting, whether to fly. Two supporting roles keep the community healthy.</p>
+    <div class="grid g3">
+      <div class="card">
+        <div class="eyebrow">Primary</div>
+        <h3>The Pilot</h3>
+        <p>Beginner to advanced. Wants to find a relevant meet, know if it'll fly, join in a tap, and coordinate. Speak to them like a flying buddy.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Supporting</div>
+        <h3>The Moderator</h3>
+        <p>A trusted pilot who keeps an eye on the roster. Reads the directory; doesn't change it. Speak plainly and respectfully.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Operator</div>
+        <h3>The Administrator</h3>
+        <p>Runs the platform and manages accounts. Needs precise, unambiguous, no-nonsense language — closer to instrument panel than marketing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 04 VOICE & TONE ============ -->
+<section id="voice">
+  <div class="wrap">
+    <span class="num">04 — Voice &amp; Tone</span>
+    <h2 class="sec-title">Talk like a pilot, not a brochure.</h2>
+    <p class="sec-intro">One voice, adjusted by altitude. Marketing copy can soar; product copy stays level; admin copy is flight-instrument precise. Across all of them: short, warm, honest.</p>
+
+    <div class="grid g4">
+      <div class="card"><div class="eyebrow">Principle</div><h3>Clear over clever</h3><p>Say the thing. A pilot mid-plan shouldn't decode a pun.</p></div>
+      <div class="card"><div class="eyebrow">Principle</div><h3>Warm, not cutesy</h3><p>Friendly like a hill greeting, never mascot-silly.</p></div>
+      <div class="card"><div class="eyebrow">Principle</div><h3>Honest counts</h3><p>Real numbers, real status. If it's full, say full.</p></div>
+      <div class="card"><div class="eyebrow">Principle</div><h3>Active &amp; brief</h3><p>Verbs first. "Join the meet," not "Participation can be initiated."</p></div>
+    </div>
+
+    <h3 style="margin-top:44px;font-size:24px;font-weight:700">Tone by altitude</h3>
+    <table class="token-table">
+      <tr><th>Surface</th><th>Altitude</th><th>Sounds like</th></tr>
+      <tr><td>Landing / marketing</td><td>Soaring — aspirational, punchy</td><td class="voice-quote">"Take off together."</td></tr>
+      <tr><td>Meets, chat, join flow</td><td>Level — helpful, immediate</td><td class="voice-quote">"You're in. 6 of 10 spots taken."</td></tr>
+      <tr><td>Weather</td><td>Level — plain, non-alarming</td><td class="voice-quote">"Light winds, clear skies on meet day."</td></tr>
+      <tr><td>Admin / errors</td><td>Instrument — exact, calm</td><td class="voice-quote">"User deactivated. They can no longer sign in."</td></tr>
+    </table>
+
+    <h3 style="margin-top:44px;font-size:24px;font-weight:700">Do &amp; Don't</h3>
+
+    <div class="voice-row">
+      <div class="voice-cell voice-do"><div class="voice-tag">Do — a full meet</div><p class="voice-quote">"This one's full — but there are 4 more meets in the Black Forest this week."</p></div>
+      <div class="voice-cell voice-dont"><div class="voice-tag">Don't</div><p>"ERROR: Maximum participant capacity reached. Action denied."</p></div>
+    </div>
+
+    <div class="voice-row">
+      <div class="voice-cell voice-do"><div class="voice-tag">Do — you joined</div><p class="voice-quote">"You're in! See you on the hill."</p></div>
+      <div class="voice-cell voice-dont"><div class="voice-tag">Don't</div><p>"Participation request successfully submitted to the system."</p></div>
+    </div>
+
+    <div class="voice-row">
+      <div class="voice-cell voice-do"><div class="voice-tag">Do — weather down</div><p class="voice-quote">"Can't reach the forecast right now. You can still join — check again in a bit."</p></div>
+      <div class="voice-cell voice-dont"><div class="voice-tag">Don't</div><p>"502 Bad Gateway: upstream weather provider unreachable."</p></div>
+    </div>
+
+    <div class="voice-row">
+      <div class="voice-cell voice-do"><div class="voice-tag">Do — empty chat</div><p class="voice-quote">"Quiet skies. Say hello and get the plan going."</p></div>
+      <div class="voice-cell voice-dont"><div class="voice-tag">Don't</div><p>"No messages found. Be the first to post!!! 🎉🔥"</p></div>
+    </div>
+
+    <div class="card" style="margin-top:26px">
+      <div class="eyebrow">Word list</div>
+      <p style="margin-bottom:8px"><b>Say:</b> meet, spot, region, join, cancel, spots left, pilot, take off, flying day, conditions.</p>
+      <p style="margin:0"><b>Avoid:</b> event, venue, RSVP, user (in pilot-facing copy), leverage, seamless, revolutionary, unlock. Use em dashes never — commas and periods instead.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 05 MESSAGING ============ -->
+<section id="messaging">
+  <div class="wrap">
+    <span class="num">05 — Messaging</span>
+    <h2 class="sec-title">What we say first.</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="eyebrow">Tagline</div>
+        <h3 style="font-size:34px">Take off together.</h3>
+        <p style="margin-top:6px">Primary lockup line. Always sentence case, always a full stop.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Micro-tagline</div>
+        <h3 style="font-size:34px">Find · Plan · Fly</h3>
+        <p style="margin-top:6px">Three-beat rhythm for eyebrows, nav, and tickers. Middots, not slashes.</p>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:22px">
+      <div class="card">
+        <div class="eyebrow">Elevator pitch</div>
+        <p>FlightMeet is the community platform for paraglider pilots. Find and create flying meets near you, check whether the conditions will fly, join with a tap, and coordinate with everyone else who's going — all in one place.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Boilerplate (one line)</div>
+        <p>FlightMeet helps paraglider pilots discover flying meets, read the weather for the day, and take off together.</p>
+        <div class="eyebrow" style="margin-top:18px">Key messages</div>
+        <div class="chip-list">
+          <span>Find meets near you</span><span>Know before you go</span><span>Join in a tap</span><span>Coordinate in one chat</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 06 LOGO ============ -->
+<section id="logo">
+  <div class="wrap">
+    <span class="num">06 — Logo</span>
+    <h2 class="sec-title">Two words, one horizon.</h2>
+    <p class="sec-intro">The wordmark is a single unit: <b>Flight</b> in Cocoa Ink, <b>Meet</b> in Sunset Orange, set in Bricolage Grotesque ExtraBold with tight tracking. The color break is the identity — it reads as ground meeting sky.</p>
+
+    <div class="grid g3">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="logo-demo" style="background:var(--paper)"><span class="logo-lockup"><span class="f">Flight</span><span class="m">Meet</span></span></div>
+        <div style="padding:14px 18px"><div class="sw-name">On Paper Cream</div><div class="sw-use">Default. The everyday lockup.</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="logo-demo on-dark"><span class="logo-lockup"><span class="f">Flight</span><span class="m">Meet</span></span></div>
+        <div style="padding:14px 18px"><div class="sw-name">On Cocoa Ink</div><div class="sw-use">"Flight" flips to Warm White; "Meet" stays orange.</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="logo-demo on-accent"><span class="logo-lockup"><span class="f">Flight</span><span class="m">Meet</span></span></div>
+        <div style="padding:14px 18px"><div class="sw-name">On Sunset Orange</div><div class="sw-use">Reverse: "Flight" white, "Meet" ink for contrast.</div></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:44px;font-size:24px;font-weight:700">Clearspace &amp; misuse</h3>
+    <div class="grid g4">
+      <div class="card"><div class="eyebrow">Rule</div><h3 style="font-size:18px">Keep the split</h3><p>The two-color break is mandatory. Never one flat color for the wordmark in brand contexts.</p></div>
+      <div class="card misuse"><div class="eyebrow">Don't</div><h3 style="font-size:18px">Don't recolor "Meet"</h3><p>Meet is always the brand orange (or ink on orange). No greens, blues, gradients.</p></div>
+      <div class="card misuse"><div class="eyebrow">Don't</div><h3 style="font-size:18px">Don't restyle</h3><p>No outlines, drop shadows, condensing, or swapping the typeface. Bricolage only.</p></div>
+      <div class="card misuse"><div class="eyebrow">Don't</div><h3 style="font-size:18px">Don't add a space</h3><p>"FlightMeet" is one word. Never "Flight Meet" or "flight-meet".</p></div>
+    </div>
+    <p style="margin-top:20px;color:var(--muted)"><b>Clearspace:</b> keep margin equal to the cap-height of the "F" on all sides. <b>Minimum size:</b> 96px wide on screen so "Meet" stays legible.</p>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 07 COLOR ============ -->
+<section id="color">
+  <div class="wrap">
+    <span class="num">07 — Color</span>
+    <h2 class="sec-title">The palette of golden hour.</h2>
+    <p class="sec-intro">One warm family, sunrise to dusk. Sunset Orange leads; Cocoa Ink grounds; cream and gold carry the light. Meadow Green is the only cool note, reserved for "go" signals.</p>
+
+    <h3 style="margin-top:30px;font-size:20px;font-weight:700;color:var(--muted-2)">Core</h3>
+    <div class="swatches">
+      <div class="sw"><div class="sw-chip" style="background:#e8641f"><span class="ratio on-dark">AA · white</span></div><div class="sw-body"><div class="sw-name">Sunset Orange</div><div class="sw-hex">#E8641F</div><div class="sw-use">The brand. Primary actions, accents, "Meet".</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#b8430a"><span class="ratio on-dark">AAA · white</span></div><div class="sw-body"><div class="sw-name">Ember</div><div class="sw-hex">#B8430A</div><div class="sw-use">Deep press states &amp; gradient ends.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#2b1608"><span class="ratio on-dark">AAA · white</span></div><div class="sw-body"><div class="sw-name">Cocoa Ink</div><div class="sw-hex">#2B1608</div><div class="sw-use">All body text; dark grounds, footer, toasts.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#3a2214"><span class="ratio on-dark">AAA · white</span></div><div class="sw-body"><div class="sw-name">Bark</div><div class="sw-hex">#3A2214</div><div class="sw-use">Secondary dark buttons &amp; CTA panels.</div></div></div>
+    </div>
+
+    <h3 style="margin-top:34px;font-size:20px;font-weight:700;color:var(--muted-2)">Warm lights</h3>
+    <div class="swatches">
+      <div class="sw"><div class="sw-chip" style="background:#faf1e6"><span class="ratio">AAA · ink</span></div><div class="sw-body"><div class="sw-name">Paper Cream</div><div class="sw-hex">#FAF1E6</div><div class="sw-use">Page background. The canvas everything sits on.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#fff6ec"><span class="ratio">AAA · ink</span></div><div class="sw-body"><div class="sw-name">Warm White</div><div class="sw-hex">#FFF6EC</div><div class="sw-use">Text/icons on dark; card surfaces.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#fff3d2"><span class="ratio">AAA · ink</span></div><div class="sw-body"><div class="sw-name">Candle</div><div class="sw-hex">#FFF3D2</div><div class="sw-use">Soft highlight text on the darkest grounds.</div></div></div>
+    </div>
+
+    <h3 style="margin-top:34px;font-size:20px;font-weight:700;color:var(--muted-2)">Golden hour &amp; signal</h3>
+    <div class="swatches">
+      <div class="sw"><div class="sw-chip" style="background:#ffb35c"><span class="ratio">AA · ink</span></div><div class="sw-body"><div class="sw-name">Sun Gold</div><div class="sw-hex">#FFB35C</div><div class="sw-use">Sun motif, warm gradients.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#ffd9a8"><span class="ratio">AAA · ink</span></div><div class="sw-body"><div class="sw-name">Gold Soft</div><div class="sw-hex">#FFD9A8</div><div class="sw-use">"Joined" chips, light kickers.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#ffe9b0"><span class="ratio">AAA · ink</span></div><div class="sw-body"><div class="sw-name">Gold Pale</div><div class="sw-hex">#FFE9B0</div><div class="sw-use">Sun core, glow highlights.</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#2e7d46"><span class="ratio on-dark">AA · white</span></div><div class="sw-body"><div class="sw-name">Meadow</div><div class="sw-hex">#2E7D46</div><div class="sw-use">"Open" status &amp; success only. Use sparingly.</div></div></div>
+    </div>
+
+    <div class="card" style="margin-top:30px">
+      <div class="eyebrow">Usage ratio</div>
+      <p style="margin:0"><b>~70%</b> warm neutrals (Paper Cream / Warm White) · <b>~20%</b> Cocoa Ink for text and dark grounds · <b>~10%</b> Sunset Orange for action and accent. Orange is a seasoning, not the meal — its scarcity is what makes a "Join" button pull the eye. The sunset gradient (<code>Paper → Gold → Sunset → Ember</code>) is reserved for hero and CTA moments.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 08 TYPOGRAPHY ============ -->
+<section id="type">
+  <div class="wrap">
+    <span class="num">08 — Typography</span>
+    <h2 class="sec-title">Two voices, one system.</h2>
+    <p class="sec-intro">Bricolage Grotesque carries display and headings — characterful, warm, slightly quirky. Instrument Sans handles body — clean and quiet. JetBrains Mono appears only in operator/admin surfaces and code.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="eyebrow">Display &amp; Headings</div>
+        <div style="font-family:var(--display);font-weight:800;font-size:52px;line-height:0.96;letter-spacing:-0.03em">Bricolage Grotesque</div>
+        <div class="type-spec"><b>Weights</b> 200–800 (variable) <b>Tracking</b> −0.02 to −0.035em <b>Case</b> Sentence</div>
+        <div class="type-sample" style="font-family:var(--display);font-weight:600;font-size:22px">Take off together. Find your next meet.</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Body &amp; UI</div>
+        <div style="font-family:var(--body);font-weight:600;font-size:44px;line-height:1;letter-spacing:-0.01em">Instrument Sans</div>
+        <div class="type-spec"><b>Weights</b> 400 / 500 / 600 / 700 <b>Line-height</b> 1.5–1.6 <b>Italic</b> available</div>
+        <div class="type-sample" style="font-size:16px">Find meets near you, plan flight days with other pilots, and take off together when the air is right.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:22px">
+      <div class="eyebrow">Operator / Code — JetBrains Mono</div>
+      <div style="font-family:var(--mono);font-weight:600;font-size:20px;margin-top:6px">users.edit · 6/10 spots · GET /api/weather</div>
+      <p style="margin:8px 0 0;color:var(--muted)">Used in the admin dashboard, data tables, IDs, and code. Never in pilot-facing marketing copy.</p>
+    </div>
+
+    <h3 style="margin-top:40px;font-size:24px;font-weight:700">Type scale</h3>
+    <div style="margin-top:8px">
+      <div class="scale-row"><span class="lbl">Display / clamp 56–148</span><span style="font-family:var(--display);font-weight:800;font-size:48px;letter-spacing:-0.035em;line-height:1">Take off together.</span></div>
+      <div class="scale-row"><span class="lbl">H2 / clamp 34–60</span><span style="font-family:var(--display);font-weight:800;font-size:38px;letter-spacing:-0.025em">Upcoming meets</span></div>
+      <div class="scale-row"><span class="lbl">H3 / 25</span><span style="font-family:var(--display);font-weight:600;font-size:25px;letter-spacing:-0.015em">Black Forest morning flight</span></div>
+      <div class="scale-row"><span class="lbl">Kicker / 14 · 0.3em</span><span style="font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent)">Find · Plan · Fly</span></div>
+      <div class="scale-row"><span class="lbl">Body / 16–19</span><span style="font-size:17px">Join a meet, and your spot is saved the moment you tap.</span></div>
+      <div class="scale-row"><span class="lbl">Meta / 13 · mono</span><span style="font-family:var(--mono);font-size:13px;color:var(--muted-2)">6 of 10 spots · Intermediate</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 09 IMAGERY ============ -->
+<section id="imagery">
+  <div class="wrap">
+    <span class="num">09 — Imagery &amp; Iconography</span>
+    <h2 class="sec-title">Real sky, real light.</h2>
+    <p class="sec-intro">Photography is warm, atmospheric, and human — paragliders at golden hour, wide horizons, pilots on hillsides. Never stocky, never cold-blue, never over-saturated.</p>
+    <div class="grid g3">
+      <div class="card"><div class="eyebrow">Photography</div><h3>Golden hour</h3><p>Warm low sun, long light, real landscapes (Black Forest, Alps, Mosel). Overlay a Cocoa-Ink gradient so Warm White text stays legible.</p></div>
+      <div class="card"><div class="eyebrow">The sun motif</div><h3>Rising &amp; repeating</h3><p>The radial sun (Gold Pale → Sun Gold → Sunset) signals the cycle: fly, land, do it again. Use as a hero accent, never as filler.</p></div>
+      <div class="card"><div class="eyebrow">Icons</div><h3>Rounded &amp; light</h3><p>Thin, rounded line icons (Phosphor). Match the friendly geometry; no sharp corners, no filled-heavy weights.</p></div>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <div class="eyebrow">Signature shapes</div>
+      <p style="margin:0">Pill / capsule (999px radius) is the house shape — buttons, chips, nav island, status. Cards use a generous 22–44px radius. The slightly-rotated ticker (−1.2°) and dashed flight paths add hand-drawn motion. Liquid-glass cards (blur + warm translucency) sit over photography.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 10 MOTION ============ -->
+<section id="motion">
+  <div class="wrap">
+    <span class="num">10 — Motion</span>
+    <h2 class="sec-title">Move like the air.</h2>
+    <p class="sec-intro">Animation (GSAP) mimics flight: slow parallax drift, thermal float, an arc that rises. Motion is smooth and eased, never bouncy or abrupt — and always respects <code>prefers-reduced-motion</code>.</p>
+    <div class="grid g4">
+      <div class="card"><div class="eyebrow">Ease</div><h3>power2–4.out</h3><p>Things settle in, decelerating like a landing approach. No linear, no harsh springs.</p></div>
+      <div class="card"><div class="eyebrow">Entrance</div><h3>Rise &amp; reveal</h3><p>Content lifts up and fades in on scroll. Hidden state renders pre-paint — no flash.</p></div>
+      <div class="card"><div class="eyebrow">Ambient</div><h3>Thermal float</h3><p>Badges and the sun drift gently and endlessly on a sine ease. Alive, not distracting.</p></div>
+      <div class="card"><div class="eyebrow">Signature</div><h3>The rising sun</h3><p>On scroll, the sun swells then settles into place — the brand's hero moment.</p></div>
+    </div>
+    <p style="margin-top:20px;color:var(--muted)"><b>Timing:</b> entrances 0.6–1.2s, parallax scrubbed to scroll, hover lifts 2–5px at 0.3s. Interactivity feels immediate — a pilot's own action (join, filter, send) updates instantly; ambient motion is the slow part.</p>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 11 COMPONENTS ============ -->
+<section id="components">
+  <div class="wrap">
+    <span class="num">11 — Core Components</span>
+    <h2 class="sec-title">The building blocks.</h2>
+    <p class="sec-intro">A small, consistent kit. Everything is a pill or a soft card; orange means primary action; status is always honest.</p>
+
+    <h3 style="margin-top:20px;font-size:20px;font-weight:700;color:var(--muted-2)">Buttons</h3>
+    <div class="comp-row">
+      <button class="btn-primary">Find a meet <span>→</span></button>
+      <button class="btn-ghost">Browse groups</button>
+      <button class="btn-primary" style="background:var(--bark);box-shadow:0 12px 30px rgba(58,34,20,0.3)">Create a meet</button>
+    </div>
+
+    <h3 style="margin-top:36px;font-size:20px;font-weight:700;color:var(--muted-2)">Status pills</h3>
+    <div class="comp-row">
+      <span class="pill pill-open">Open · 6 of 10</span>
+      <span class="pill pill-joined">You're in</span>
+      <span class="pill pill-full">Full</span>
+    </div>
+    <p style="margin-top:10px;color:var(--muted);font-size:15px">Open = Meadow, Joined = Gold Soft, Full = muted ink. Status is derived from the participant list — it never lies.</p>
+
+    <div class="ticker-demo">FIND · PLAN · FLY ★ FIND MEETS NEAR YOU ★ TAKE OFF TOGETHER ★ FIND · PLAN · FLY ★</div>
+
+    <h3 style="margin-top:36px;font-size:20px;font-weight:700;color:var(--muted-2)">Design tokens</h3>
+    <table class="token-table">
+      <tr><th>Token</th><th>Value</th><th>Use</th></tr>
+      <tr><td><code>--fm-accent</code></td><td>#E8641F</td><td>Primary action, brand accent</td></tr>
+      <tr><td>Ground</td><td>#FAF1E6</td><td>Page background</td></tr>
+      <tr><td>Text</td><td>#2B1608</td><td>Body copy on light</td></tr>
+      <tr><td>Radius — pill</td><td>999px</td><td>Buttons, chips, nav, status</td></tr>
+      <tr><td>Radius — card</td><td>22–44px</td><td>Cards &amp; panels</td></tr>
+      <tr><td>Shadow — action</td><td>0 12px 30px rgba(232,100,31,.34)</td><td>Orange buttons</td></tr>
+      <tr><td>Shadow — card</td><td>0 20px 50px rgba(43,22,8,.18)</td><td>Panels over photos</td></tr>
+    </table>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============ 12 SURFACES ============ -->
+<section id="surfaces">
+  <div class="wrap">
+    <span class="num">12 — Brand Across Surfaces</span>
+    <h2 class="sec-title">Same sky, every screen.</h2>
+    <p class="sec-intro">The brand holds from the landing page to the weather panel to the admin console — the tone shifts by altitude, the visual system never does.</p>
+    <div class="grid g4">
+      <div class="card"><div class="eyebrow">Meets</div><h3>The heart</h3><p>Glass cards over golden-hour photos, honest status pills, one orange "Join". Warm and immediate.</p></div>
+      <div class="card"><div class="eyebrow">Weather</div><h3>Decision support</h3><p>Plain forecast tied to the meet's spot. Calm, never alarming; failure is soft and never blocks joining.</p></div>
+      <div class="card"><div class="eyebrow">Chat</div><h3>The plan</h3><p>Quiet, friendly, instant. Messages appear the moment they're sent. Copy nudges gently, never shouts.</p></div>
+      <div class="card"><div class="eyebrow">Admin</div><h3>Instrument panel</h3><p>Mono type, precise labels, no marketing warmth. Clarity and safety over personality — but the same palette.</p></div>
+    </div>
+    <div class="essence" style="margin-top:34px">
+      <p class="lead">If it doesn't feel like <em>golden hour on the hill</em> — warm, calm, capable — it isn't FlightMeet yet.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="doc">
+  <div class="wrap">
+    <div class="fl"><span class="f">Flight</span><span class="m">Meet</span></div>
+    <div style="font-size:13px">Brand Guidelines v1.0 · Team 11 · Find · Plan · Fly</div>
+  </div>
+</footer>
+
+</body>
+</html>

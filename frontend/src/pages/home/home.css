@@ -1,0 +1,1617 @@
+﻿/* ============ FlightMeet homepage ============ */
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: #faf1e6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: #e8641f;
+  color: #fff6ec;
+}
+
+.fm-root {
+  font-family: 'Instrument Sans', sans-serif;
+  color: #2b1608;
+  background: #faf1e6;
+  overflow-x: hidden;
+}
+
+/* Shared type */
+.fm-h2 {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(34px, 4.8vw, 60px);
+  letter-spacing: -0.025em;
+}
+.fm-h3 {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+  letter-spacing: -0.015em;
+}
+.fm-kicker {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fm-accent);
+}
+.fm-kicker--ink {
+  color: #3a2214;
+  text-shadow: 0 1px 16px rgba(255, 246, 236, 0.75), 0 0 4px rgba(255, 246, 236, 0.6);
+}
+
+/* ============ Hero ============ */
+.fm-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 660px;
+  overflow: hidden;
+}
+.fm-hero-media {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.fm-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+}
+/* Hero copy */
+.fm-hero-copy {
+  position: absolute;
+  left: clamp(24px, 5vw, 72px);
+  right: clamp(24px, 5vw, 72px);
+  bottom: clamp(40px, 8vh, 88px);
+  z-index: 4;
+}
+.fm-hero-eyebrow {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--fm-accent);
+  margin-bottom: 18px;
+}
+.fm-hero-title {
+  margin: 0 0 20px 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(56px, 9.5vw, 148px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.fm-hero-line {
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.fm-hero-line > span {
+  display: inline-block;
+  white-space: nowrap;
+}
+.fm-hero-line--accent > span {
+  color: var(--fm-accent);
+}
+.fm-hero-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+}
+.fm-hero-sub {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+  color: #4a2e17;
+  text-wrap: pretty;
+}
+.fm-hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.fm-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--fm-accent);
+  color: #fff6ec;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  box-shadow: 0 12px 32px rgba(232, 100, 31, 0.35);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.fm-btn-primary:hover {
+  background: var(--fm-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(232, 100, 31, 0.45);
+}
+/* Same clouded glass as the nav island */
+.fm-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(250, 241, 230, 0.6);
+  backdrop-filter: blur(22px) saturate(1.08);
+  color: #2b1608;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 246, 236, 0.75);
+  box-shadow: 0 10px 40px rgba(43, 22, 8, 0.08);
+}
+.fm-btn-ghost:hover {
+  background: rgba(255, 246, 236, 0.85);
+}
+
+/* ============ Three steps ============ */
+.fm-steps {
+  padding: clamp(80px, 12vh, 140px) clamp(24px, 5vw, 72px) clamp(40px, 6vh, 70px);
+}
+.fm-section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  margin-bottom: clamp(30px, 5vh, 60px);
+}
+.fm-steps-wrap {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.fm-flight-svg {
+  position: absolute;
+  left: 3%;
+  top: 10px;
+  width: 94%;
+  height: 190px;
+  overflow: visible;
+}
+.fm-steps-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+}
+.fm-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+.fm-step--outer {
+  margin-top: 190px;
+}
+.fm-step--mid {
+  margin-top: 125px;
+}
+.fm-step-badge {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #faf1e6;
+  border: 2px solid var(--fm-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--fm-accent);
+  box-shadow: 0 8px 24px rgba(232, 100, 31, 0.18);
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Desktop: the numbers sit exactly on the flight path (the hover scale has to
+   restate the centering translate so it composes with it). z-index lifts them
+   above the steps grid, whose transparent box otherwise swallows their clicks. */
+.fm-step-dots .fm-step-badge {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+.fm-step-dots .fm-step-badge:hover,
+.fm-step-dots .fm-step-badge:focus-visible {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 12px 32px rgba(232, 100, 31, 0.32);
+}
+.fm-step-badge--inline {
+  display: none;
+}
+.fm-step-badge--inline:hover,
+.fm-step-badge--inline:focus-visible {
+  transform: scale(1.15);
+  box-shadow: 0 12px 32px rgba(232, 100, 31, 0.32);
+}
+.fm-step p {
+  margin: 0;
+  max-width: 30ch;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #5a3a20;
+  text-wrap: pretty;
+}
+
+/* Repeat loop + rising sun (own section after the step 3 photo wall,
+   looping back to #steps) */
+.fm-loop-section {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vh, 50px) clamp(24px, 5vw, 72px) clamp(70px, 10vh, 110px);
+}
+.fm-loop {
+  position: relative;
+  height: 300px;
+  margin-top: 10px;
+}
+.fm-loop-svg {
+  position: absolute;
+  left: 3%;
+  top: 0;
+  width: 94%;
+  height: 200px;
+  /* the loop line overshoots the top edge to connect to the section above */
+  overflow: visible;
+}
+/* Centered without a transform so GSAP can tween y/scale on it cleanly
+   (the sun's center stays on the loop path's end at y=190). */
+.fm-repeat-badge {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: 110px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fm-repeat-aura {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.fm-repeat-rays {
+  position: absolute;
+  overflow: visible;
+}
+.fm-repeat-pulse {
+  position: absolute;
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  border: 2px solid var(--fm-accent);
+  pointer-events: none;
+}
+.fm-repeat-sun {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 32%, #ffe2a8 0%, #ffa45c 52%, var(--fm-accent) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-decoration: none;
+  box-shadow: 0 0 60px rgba(232, 100, 31, 0.45), 0 18px 40px rgba(43, 22, 8, 0.22);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.fm-repeat-sun:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 90px rgba(232, 100, 31, 0.65), 0 18px 40px rgba(43, 22, 8, 0.22);
+}
+.fm-repeat-sun-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: #2b1608;
+}
+/* Kicker-style caption above the sun, same voice as the hero eyebrow */
+.fm-loop-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 58px;
+  text-align: center;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fm-accent);
+  text-decoration: none;
+}
+.fm-loop-caption:hover {
+  color: var(--fm-accent-hover);
+}
+/* ============ Upcoming meets ============ */
+.fm-meets {
+  padding: clamp(40px, 6vh, 70px) clamp(20px, 4vw, 56px) clamp(80px, 12vh, 130px);
+}
+.fm-meets-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 44px;
+  box-shadow: 0 30px 80px rgba(43, 22, 8, 0.18);
+}
+.fm-meets-bg {
+  position: absolute;
+  left: 0;
+  top: -12%;
+  width: 100%;
+  height: 124%;
+  object-fit: cover;
+  object-position: center 30%;
+  will-change: transform;
+}
+.fm-meets-inner {
+  position: relative;
+  padding: clamp(56px, 9vh, 100px) clamp(24px, 4vw, 64px);
+}
+.fm-meets-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: clamp(36px, 6vh, 56px);
+}
+.fm-meets-head-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fm-allmeets-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 246, 236, 0.95);
+  color: #2b1608;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(43, 22, 8, 0.3);
+}
+.fm-allmeets-btn:hover {
+  transform: translateY(-2px);
+  background: #fff6ec;
+  box-shadow: 0 14px 34px rgba(43, 22, 8, 0.4);
+}
+.fm-meets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+}
+
+/* Clouded-glass cards: like looking through a sunlit cloud, ink text on top */
+.fm-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255, 246, 236, 0.64);
+  backdrop-filter: blur(26px) saturate(1.05);
+  border: 1px solid rgba(255, 246, 236, 0.85);
+  box-shadow: 0 20px 50px rgba(43, 22, 8, 0.25);
+  color: #2b1608;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.fm-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 60px rgba(43, 22, 8, 0.3);
+}
+.fm-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.fm-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+/* "Open" is a calm cream pill with a Meadow dot; green stays a signal, not a fill */
+.fm-card-status--open {
+  background: rgba(255, 246, 236, 0.9);
+  color: #2b1608;
+  border-color: rgba(43, 22, 8, 0.14);
+}
+.fm-card-status--open::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2e7d46;
+  box-shadow: 0 0 0 3px rgba(46, 125, 70, 0.18);
+}
+.fm-card-status--joined {
+  background: #ffd9a8;
+  color: #5c3512;
+}
+.fm-card-status--full {
+  background: rgba(43, 22, 8, 0.12);
+  color: #2b1608;
+}
+/* Date line reads first: bold orange day + quiet date/time */
+.fm-card-when {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.fm-card-day {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fm-accent);
+}
+.fm-card-date {
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(43, 22, 8, 0.68);
+}
+.fm-card-title {
+  margin: 2px 0 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.fm-card-where {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #5a3a20;
+}
+.fm-card-where svg {
+  flex: none;
+  color: var(--fm-accent);
+}
+/* Level + capacity share one quiet footer row */
+.fm-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(43, 22, 8, 0.14);
+  padding-top: 16px;
+  margin-top: 4px;
+}
+.fm-card-level {
+  flex: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2b1608;
+  background: rgba(255, 246, 236, 0.9);
+  border: 1px solid rgba(43, 22, 8, 0.14);
+  padding: 6px 13px;
+  border-radius: 999px;
+}
+.fm-card-cap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 170px;
+}
+.fm-cap-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(43, 22, 8, 0.14);
+  overflow: hidden;
+}
+.fm-cap-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--fm-accent);
+  transition: width 0.45s ease;
+}
+.fm-cap-fill--full {
+  background: #2b1608;
+}
+.fm-cap-label {
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: rgba(43, 22, 8, 0.7);
+}
+.fm-card-btn {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 15px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.fm-card-btn--join {
+  background: var(--fm-accent);
+  color: #fff6ec;
+  border: none;
+  box-shadow: 0 10px 28px rgba(232, 100, 31, 0.3);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.fm-card-btn--join:hover {
+  background: var(--fm-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(232, 100, 31, 0.4);
+}
+.fm-card-btn--joined {
+  background: rgba(255, 246, 236, 0.9);
+  color: #5c3512;
+  border: 1.5px solid rgba(92, 53, 18, 0.35);
+  box-shadow: 0 10px 28px rgba(232, 100, 31, 0.3);
+}
+.fm-card-btn--joined:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(232, 100, 31, 0.4);
+}
+.fm-card-btn--host {
+  background: transparent;
+  color: #2b1608;
+  border: 1.5px solid rgba(43, 22, 8, 0.4);
+}
+.fm-card-btn--host:hover {
+  background: rgba(43, 22, 8, 0.08);
+}
+.fm-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 80;
+  background: #2b1608;
+  color: #fff3d2;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  box-shadow: 0 16px 40px rgba(43, 22, 8, 0.4);
+}
+
+/* ============ CTA (full-bleed sunset into the footer) ============ */
+.fm-cta {
+  padding: 0;
+}
+/* Golden-hour horizon: amber into deep orange, no pale yellow band */
+.fm-cta-panel {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #faf1e6 0%, #fbd0a0 20%, #f6934e 50%, #e8641f 78%, #b8430a 100%);
+}
+.fm-cta-glow {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  background: radial-gradient(ellipse 62% 58% at 50% 104%, rgba(255, 229, 195, 0.95) 0%, rgba(255, 180, 108, 0.75) 42%, transparent 72%);
+  pointer-events: none;
+  will-change: transform;
+}
+/* Layered-sunset dressing: a soft sun low in the panel (it sets behind the
+   footer's hills) and canopy silhouettes that parallax via HomePage.tsx. */
+.fm-cta-sun {
+  position: absolute;
+  left: 50%;
+  bottom: -12vh;
+  transform: translateX(-50%);
+  width: 44vh;
+  height: 44vh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 38%, #ffe3b0 0%, #ffb26c 55%, rgba(255, 178, 108, 0) 72%);
+  filter: blur(2px);
+  pointer-events: none;
+}
+.fm-cta-canopy {
+  position: absolute;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.fm-cta-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  padding: clamp(80px, 13vh, 150px) 24px;
+}
+.fm-cta-title {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(38px, 5.8vw, 78px);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: #3a2214;
+  text-wrap: balance;
+  max-width: 18ch;
+}
+.fm-cta-sub {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+  color: #55341c;
+  text-wrap: pretty;
+}
+.fm-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #3a2214;
+  color: #fff3d2;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 18px 36px;
+  border-radius: 999px;
+  box-shadow: 0 14px 36px rgba(58, 34, 20, 0.3);
+}
+.fm-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 46px rgba(58, 34, 20, 0.4);
+}
+
+/* ============ Story (Why FlightMeet) ============ */
+.fm-story {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(36px, 6vw, 88px);
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(70px, 11vh, 130px) clamp(24px, 5vw, 72px) clamp(30px, 5vh, 60px);
+}
+.fm-story-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.fm-story-intro {
+  margin: 0;
+  max-width: 52ch;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.6;
+  color: #5a3a20;
+  text-wrap: pretty;
+}
+.fm-story-points {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+.fm-story-point {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(43, 22, 8, 0.14);
+}
+.fm-story-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: 19px;
+  color: var(--fm-accent);
+  padding-top: 3px;
+  flex: none;
+}
+.fm-story-point h3 {
+  font-size: 20px;
+}
+.fm-story-point p {
+  margin: 6px 0 0;
+  max-width: 46ch;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #5a3a20;
+  text-wrap: pretty;
+}
+.fm-story-media {
+  position: relative;
+}
+.fm-story-imgwrap {
+  position: relative;
+  aspect-ratio: 3 / 3.8;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(43, 22, 8, 0.22);
+}
+.fm-story-imgwrap img {
+  position: absolute;
+  left: 0;
+  top: -8%;
+  width: 100%;
+  height: 116%;
+  object-fit: cover;
+  object-position: 32% center;
+  will-change: transform;
+}
+/* Overlapping print: same device as the pilot cards below */
+.fm-story-polaroid {
+  position: absolute;
+  left: clamp(-34px, -2.5vw, -16px);
+  bottom: -36px;
+  width: clamp(140px, 14vw, 200px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 22px;
+  border: 7px solid #fff6ec;
+  box-shadow: 0 22px 48px rgba(43, 22, 8, 0.3);
+  transform: rotate(-4deg);
+  transition: transform 0.35s ease;
+}
+.fm-story-polaroid:hover {
+  transform: rotate(-1deg) scale(1.05);
+}
+
+/* ============ Features (What you get) ============ */
+.fm-features {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(50px, 8vh, 100px) clamp(24px, 5vw, 72px);
+}
+.fm-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px;
+}
+.fm-feat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px;
+  border-radius: 32px;
+  overflow: hidden;
+  min-height: 320px;
+}
+.fm-feat-eyebrow {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fm-accent);
+}
+.fm-feat h3 {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: clamp(22px, 2vw, 26px);
+  letter-spacing: -0.015em;
+}
+.fm-feat p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #5a3a20;
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+.fm-feat--weather {
+  grid-column: span 3;
+  min-height: 440px;
+  justify-content: flex-end;
+  padding: 16px;
+}
+.fm-feat-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Clouded glass panel floating over the photo */
+.fm-feat-cloud {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px;
+  border-radius: 24px;
+  background: rgba(255, 246, 236, 0.6);
+  backdrop-filter: blur(24px) saturate(1.05);
+  border: 1px solid rgba(255, 246, 236, 0.8);
+  box-shadow: 0 18px 44px rgba(43, 22, 8, 0.25);
+  color: #2b1608;
+}
+.fm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.fm-chip {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2b1608;
+  background: rgba(255, 246, 236, 0.85);
+  border: 1px solid rgba(43, 22, 8, 0.14);
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+.fm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.fm-chip--go::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2e7d46;
+  box-shadow: 0 0 0 3px rgba(46, 125, 70, 0.18);
+}
+/* Mini forecast strip inside the weather cloud */
+.fm-forecast {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.fm-forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 58px;
+  padding: 9px 10px;
+  border-radius: 15px;
+  background: rgba(255, 246, 236, 0.8);
+  border: 1px solid rgba(43, 22, 8, 0.12);
+}
+.fm-forecast-day--active {
+  background: #fff6ec;
+  border-color: var(--fm-accent);
+  box-shadow: 0 0 0 2px rgba(232, 100, 31, 0.22);
+}
+.fm-forecast-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(43, 22, 8, 0.55);
+}
+.fm-forecast-icon {
+  font-size: 17px;
+  line-height: 1.2;
+}
+.fm-forecast-wind {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5a3a20;
+  white-space: nowrap;
+}
+.fm-forecast .fm-chip--go {
+  margin-left: 6px;
+}
+/* Chat vignette: light card, brown bubbles for others, orange for "me" */
+.fm-feat--chat {
+  grid-column: span 2;
+  background: #fff6ec;
+  border: 1px solid rgba(43, 22, 8, 0.1);
+}
+.fm-bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+.fm-bubble-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 9px;
+  max-width: 92%;
+}
+.fm-bubble-row--me {
+  align-self: flex-end;
+  max-width: 88%;
+}
+.fm-bubble-avatar {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: #ffd9a8;
+  color: #5c3512;
+  margin-bottom: 2px;
+}
+.fm-bubble-avatar--2 {
+  background: #f3c9ad;
+}
+.fm-bubble-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.fm-bubble-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(43, 22, 8, 0.55);
+  padding-left: 6px;
+}
+.fm-bubble {
+  background: #2b1608;
+  color: #fff3d2;
+  font-size: 14.5px;
+  line-height: 1.45;
+  padding: 11px 16px;
+  border-radius: 18px 18px 18px 6px;
+  box-shadow: 0 6px 16px rgba(43, 22, 8, 0.12);
+}
+.fm-bubble--me {
+  background: var(--fm-accent);
+  color: #fff6ec;
+  border-radius: 18px 18px 6px 18px;
+  box-shadow: 0 6px 16px rgba(232, 100, 31, 0.24);
+}
+/* Roster vignette: avatar stack + honest capacity bar */
+.fm-feat--join {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #ffe9b0 0%, #ffd9a8 100%);
+}
+.fm-roster {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+.fm-roster-avatars {
+  display: flex;
+}
+.fm-roster-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #5c3512;
+  background: #fff6ec;
+  border: 2.5px solid #ffe3b8;
+  margin-right: -9px;
+}
+.fm-roster-avatar--1 {
+  background: #ffd9a8;
+}
+.fm-roster-avatar--2 {
+  background: #f3c9ad;
+}
+.fm-roster-avatar--you {
+  background: var(--fm-accent);
+  color: #fff6ec;
+  font-size: 11.5px;
+}
+.fm-roster-cap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fm-roster-cap .fm-cap-track {
+  max-width: 190px;
+  background: rgba(43, 22, 8, 0.16);
+}
+/* Search vignette */
+.fm-feat--find {
+  grid-column: span 3;
+  background: #fff6ec;
+  border: 1px solid rgba(43, 22, 8, 0.1);
+}
+.fm-search-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+.fm-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 420px;
+  background: #faf1e6;
+  border: 1.5px solid rgba(43, 22, 8, 0.16);
+  border-radius: 999px;
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(43, 22, 8, 0.6);
+}
+.fm-search-bar svg {
+  flex: none;
+  color: var(--fm-accent);
+}
+.fm-search-caret {
+  width: 2px;
+  height: 18px;
+  background: var(--fm-accent);
+  border-radius: 1px;
+  animation: fm-caret 1.1s steps(1) infinite;
+}
+@keyframes fm-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ============ Testimonials (pilot voices) ============ */
+.fm-pilots {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(50px, 8vh, 100px) clamp(24px, 5vw, 72px) clamp(70px, 10vh, 120px);
+}
+.fm-pilots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 34px);
+  align-items: start;
+}
+.fm-pilot:nth-child(2) {
+  margin-top: 38px;
+}
+/* Printed-photo cards, same family as the story polaroid.
+   The hover motion is a GSAP pointer tilt (HomePage.tsx), so no transform
+   transition here — it would fight GSAP's per-frame writes. */
+.fm-pilot-card {
+  margin: 0;
+  background: #fff6ec;
+  border: 1px solid rgba(43, 22, 8, 0.1);
+  border-radius: 26px;
+  padding: 12px 12px 22px;
+  box-shadow: 0 18px 44px rgba(43, 22, 8, 0.12);
+  transform: rotate(-1.4deg);
+  transition: box-shadow 0.3s ease;
+}
+.fm-pilot:nth-child(2) .fm-pilot-card {
+  transform: rotate(1.2deg);
+}
+.fm-pilot:nth-child(3) .fm-pilot-card {
+  transform: rotate(-0.7deg);
+}
+.fm-pilot-card:hover {
+  box-shadow: 0 26px 54px rgba(43, 22, 8, 0.18);
+}
+.fm-pilot-img {
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  object-fit: cover;
+  border-radius: 17px;
+  display: block;
+}
+.fm-pilot-quote {
+  margin: 16px 8px 12px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 600;
+  font-size: 18.5px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: #2b1608;
+  text-wrap: pretty;
+}
+.fm-pilot-name {
+  margin: 0 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #2b1608;
+}
+.fm-pilot-meta {
+  margin: 3px 8px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #7a5636;
+}
+
+/* ============ Small screens ============ */
+@media (max-width: 1020px) {
+  .fm-feat--weather,
+  .fm-feat--chat,
+  .fm-feat--join,
+  .fm-feat--find {
+    grid-column: span 5;
+    min-height: 0;
+  }
+  .fm-feat--weather {
+    min-height: 400px;
+  }
+}
+@media (max-width: 980px) {
+  .fm-story {
+    grid-template-columns: 1fr;
+  }
+  .fm-story-media {
+    order: -1;
+    max-width: 520px;
+  }
+  .fm-story-imgwrap {
+    aspect-ratio: 4 / 3;
+  }
+  .fm-story-imgwrap img {
+    object-position: center 60%;
+  }
+  .fm-story-polaroid {
+    left: auto;
+    right: -10px;
+    bottom: -30px;
+  }
+}
+@media (max-width: 760px) {
+  .fm-flight-svg,
+  .fm-step-dots {
+    display: none;
+  }
+  .fm-step-badge--inline {
+    display: flex;
+  }
+  .fm-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .fm-step--outer,
+  .fm-step--mid {
+    margin-top: 0;
+  }
+  .fm-pilots-grid {
+    grid-template-columns: 1fr;
+  }
+  .fm-pilot:nth-child(2) {
+    margin-top: 0;
+  }
+}
+
+/* Clouded glass needs backdrop-filter; where it's unavailable (or GPU
+   acceleration is off), fall back to a nearly opaque cream so the panels
+   still read as solid clouds instead of clear glass. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .fm-card,
+  .fm-feat-cloud,
+  .fm-btn-ghost {
+    background: rgba(255, 248, 240, 0.95);
+  }
+}
+
+/* ============ Quote interlude ============ */
+.fm-quote {
+  position: relative;
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.fm-quote-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+}
+.fm-quote::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(43, 22, 8, 0.35), rgba(43, 22, 8, 0.62));
+}
+.fm-quote-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 80px 24px;
+  text-align: center;
+  color: #fff6ec;
+}
+/* the canopy mark stands in for quote marks */
+.fm-quote-canopy {
+  display: block;
+  width: 74px;
+  margin: 0 auto 22px;
+  color: #fff6ec;
+}
+.fm-quote-text {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 4.4vw, 52px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.fm-quote-text em {
+  font-style: normal;
+  color: #ea8c4e;
+}
+.fm-quote-by {
+  margin-top: 22px;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* ============ Live feed ============ */
+.fm-feed {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(70px, 11vh, 130px) clamp(24px, 5vw, 72px);
+}
+.fm-feed-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.fm-feed-title {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800;
+  font-size: clamp(26px, 2.6vw, 38px);
+  letter-spacing: -0.02em;
+}
+.fm-feed-copy p {
+  margin: 0;
+  color: #5a3a20;
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 42ch;
+}
+.fm-feed-panel {
+  position: relative;
+  background: #fff6ec;
+  border: 1px solid rgba(43, 22, 8, 0.12);
+  border-radius: 26px;
+  padding: 10px 10px 4px;
+  box-shadow: 0 22px 50px rgba(43, 22, 8, 0.14);
+  overflow: hidden;
+  max-height: 380px;
+}
+.fm-feed-panel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  background: linear-gradient(transparent, #fff6ec);
+  pointer-events: none;
+}
+.fm-feed-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 13px 14px;
+  border-radius: 16px;
+}
+.fm-feed-item:nth-child(odd) {
+  background: rgba(43, 22, 8, 0.035);
+}
+.fm-feed-av {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #5c3512;
+  background: #ffd9a8;
+}
+.fm-feed-av--b {
+  background: #f3c9ad;
+}
+.fm-feed-av--c {
+  background: #cfe3f5;
+  color: #1e3a5f;
+}
+.fm-feed-txt {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.fm-feed-txt b {
+  font-weight: 600;
+}
+.fm-feed-act {
+  color: var(--fm-accent);
+  font-weight: 600;
+}
+.fm-feed-when {
+  display: block;
+  font-family: ui-monospace, 'Cascadia Mono', 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: rgba(43, 22, 8, 0.55);
+  margin-top: 2px;
+}
+@media (max-width: 900px) {
+  .fm-feed {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Progress rail (left) ============ */
+.fm-rail {
+  position: fixed;
+  left: clamp(10px, 1.6vw, 26px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.fm-rail-dot {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(43, 22, 8, 0.25);
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+.fm-rail-dot:hover {
+  background: rgba(43, 22, 8, 0.5);
+}
+.fm-rail-dot--active {
+  background: var(--fm-accent);
+  transform: scale(1.35);
+}
+.fm-rail-label {
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  background: rgba(250, 241, 230, 0.92);
+  border: 1px solid rgba(43, 22, 8, 0.1);
+  color: #2b1608;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(43, 22, 8, 0.12);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.fm-rail-dot:hover .fm-rail-label,
+.fm-rail-dot:focus-visible .fm-rail-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+@media (max-width: 1100px) {
+  .fm-rail {
+    display: none;
+  }
+}
+
+/* ============ Live-data wiring (meets, weather map, search) ============ */
+
+/* Loading shimmer, shared by the meet-card skeletons and the forecast strip */
+.fm-skel {
+  display: block;
+  border-radius: 999px;
+  background: rgba(43, 22, 8, 0.12);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fm-skel {
+    animation: fm-skel-pulse 1.5s ease-in-out infinite;
+  }
+}
+@keyframes fm-skel-pulse {
+  0%, 100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+.fm-card--skel {
+  gap: 18px;
+}
+
+/* Card title is now a link to the meet; keep the ink look, warm to orange */
+a.fm-card-title {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+a.fm-card-title:hover {
+  color: var(--fm-accent);
+}
+/* Buttons rendered as links (View meet / Plan the first meet) */
+.fm-card-btn {
+  text-decoration: none;
+}
+
+/* Empty "plan the first meet" invite card */
+.fm-card--empty {
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 40px 28px;
+}
+.fm-card--empty .fm-card-day {
+  letter-spacing: 0.14em;
+}
+.fm-card-where--empty {
+  justify-content: center;
+  max-width: 40ch;
+}
+.fm-card--empty .fm-card-btn {
+  width: auto;
+  align-self: center;
+  padding-left: 34px;
+  padding-right: 34px;
+}
+
+/* Trier mini-map under the forecast strip */
+.fm-weather-map {
+  position: relative;
+  margin-top: 14px;
+}
+.fm-weather-map-label {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 500;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2b1608;
+  background: rgba(255, 246, 236, 0.92);
+  padding: 4px 11px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(43, 22, 8, 0.2);
+  pointer-events: none;
+}
+.fm-weather-note {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #5a3a20;
+}
+
+/* Real search box + suggestion dropdown (Find card). Overflow must be visible
+   so the dropdown can spill past the card's rounded edge. */
+.fm-feat--find {
+  overflow: visible;
+}
+.fm-search {
+  position: relative;
+  max-width: 420px;
+}
+.fm-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2b1608;
+}
+.fm-search-input::placeholder {
+  color: rgba(43, 22, 8, 0.5);
+}
+.fm-search-bar:focus-within {
+  border-color: var(--fm-accent);
+  box-shadow: 0 0 0 3px rgba(232, 100, 31, 0.16);
+}
+.fm-search-drop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #fff6ec;
+  border: 1px solid rgba(43, 22, 8, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 20px 48px rgba(43, 22, 8, 0.22);
+}
+.fm-search-opt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.fm-search-opt.is-active {
+  background: rgba(232, 100, 31, 0.12);
+}
+.fm-search-opt-title {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: #2b1608;
+}
+.fm-search-opt-meta {
+  font-size: 12.5px;
+  color: #5a3a20;
+}
+
+/* Region chips are now links to the filtered meets overview */
+a.fm-chip {
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+a.fm-chip:hover {
+  color: var(--fm-accent);
+  border-color: var(--fm-accent);
+  background: #fff6ec;
+}

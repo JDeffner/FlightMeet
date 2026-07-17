@@ -1,6 +1,10 @@
 # Disable directory browsing
 Options -Indexes
 
+# Serve the React SPA (index.html) at the directory root, not CodeIgniter's
+# index.php. The API still runs through index.php via the api/media rewrite below.
+DirectoryIndex index.html index.php
+
 # ----------------------------------------------------------------------
 # Rewrite engine
 # ----------------------------------------------------------------------

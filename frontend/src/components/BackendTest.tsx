@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { apiUrl } from "@/lib/api"
 
 type TestState = {
   status: "idle" | "loading" | "success" | "error"
@@ -65,7 +66,7 @@ export function BackendTest() {
     setPingState({ status: "loading" })
     const t0 = performance.now()
     try {
-      const res = await fetch("/api/ping", {
+      const res = await fetch(apiUrl("/api/ping"), {
         headers: { Accept: "application/json" },
       })
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)
@@ -93,7 +94,7 @@ export function BackendTest() {
       } catch {
         throw new Error("Invalid JSON in request body")
       }
-      const res = await fetch("/api/echo", {
+      const res = await fetch(apiUrl("/api/echo"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

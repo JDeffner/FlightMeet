@@ -5,8 +5,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Brand fonts (Instrument Sans / Bricolage Grotesque) are self-hosted via
+   @font-face in components/chrome/chrome.css, which loads on every page. */
 @theme inline {
-    --font-heading: var(--font-mono);
+    --font-heading: 'Bricolage Grotesque', 'Instrument Sans', sans-serif;
     --font-mono: 'JetBrains Mono Variable', monospace;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -46,75 +48,83 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* FlightMeet brand tokens — cream #FAF1E6, ink #2B1608, orange #E8641F
+   (see docs/BRANDING.html and the Cloudy Glass logo concept). */
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    --background: oklch(0.962 0.017 74);
+    --foreground: oklch(0.225 0.045 55);
+    --card: oklch(0.987 0.011 85);
+    --card-foreground: oklch(0.225 0.045 55);
+    --popover: oklch(0.987 0.011 85);
+    --popover-foreground: oklch(0.225 0.045 55);
+    --primary: oklch(0.655 0.18 43);
+    --primary-foreground: oklch(0.976 0.012 75);
+    /* FlightMeet chrome accent (nav island + footer), shared across every page.
+       Kept as a raw hex to match the landing artwork exactly. */
+    --fm-accent: #e8641f;
+    --fm-accent-hover: #d1531a;
+    --secondary: oklch(0.92 0.02 80);
+    --secondary-foreground: oklch(0.225 0.045 55);
+    --muted: oklch(0.93 0.019 79);
+    --muted-foreground: oklch(0.4 0.055 60);
+    --accent: oklch(0.93 0.035 70);
+    --accent-foreground: oklch(0.225 0.045 55);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
+    --border: oklch(0.225 0.045 55 / 12%);
+    --input: oklch(0.225 0.045 55 / 16%);
+    --ring: oklch(0.655 0.18 43);
+    --chart-1: oklch(0.655 0.18 43);
+    --chart-2: oklch(0.72 0.13 55);
+    --chart-3: oklch(0.88 0.045 235);
+    --chart-4: oklch(0.7 0.06 330);
+    --chart-5: oklch(0.4 0.055 60);
     --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --sidebar: oklch(0.987 0.011 85);
+    --sidebar-foreground: oklch(0.225 0.045 55);
+    --sidebar-primary: oklch(0.655 0.18 43);
+    --sidebar-primary-foreground: oklch(0.976 0.012 75);
+    --sidebar-accent: oklch(0.92 0.02 80);
+    --sidebar-accent-foreground: oklch(0.225 0.045 55);
+    --sidebar-border: oklch(0.225 0.045 55 / 12%);
+    --sidebar-ring: oklch(0.655 0.18 43);
 }
 
+/* Dark = the brand's ink-brown world (mark reverses to cream + orange). */
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: oklch(0.22 0.04 55);
+    --foreground: oklch(0.955 0.015 78);
+    --card: oklch(0.265 0.042 55);
+    --card-foreground: oklch(0.955 0.015 78);
+    --popover: oklch(0.265 0.042 55);
+    --popover-foreground: oklch(0.955 0.015 78);
+    --primary: oklch(0.68 0.17 45);
+    --primary-foreground: oklch(0.976 0.012 75);
+    --secondary: oklch(0.31 0.04 55);
+    --secondary-foreground: oklch(0.955 0.015 78);
+    --muted: oklch(0.3 0.038 55);
+    --muted-foreground: oklch(0.78 0.03 70);
+    --accent: oklch(0.33 0.05 55);
+    --accent-foreground: oklch(0.955 0.015 78);
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --border: oklch(0.976 0.012 75 / 12%);
+    --input: oklch(0.976 0.012 75 / 16%);
+    --ring: oklch(0.68 0.17 45);
+    --chart-1: oklch(0.68 0.17 45);
+    --chart-2: oklch(0.75 0.13 55);
+    --chart-3: oklch(0.88 0.045 235);
+    --chart-4: oklch(0.72 0.06 330);
+    --chart-5: oklch(0.78 0.03 70);
+    --sidebar: oklch(0.265 0.042 55);
+    --sidebar-foreground: oklch(0.955 0.015 78);
+    --sidebar-primary: oklch(0.68 0.17 45);
+    --sidebar-primary-foreground: oklch(0.976 0.012 75);
+    --sidebar-accent: oklch(0.33 0.05 55);
+    --sidebar-accent-foreground: oklch(0.955 0.015 78);
+    --sidebar-border: oklch(0.976 0.012 75 / 12%);
+    --sidebar-ring: oklch(0.68 0.17 45);
 }
 
 @layer base {
@@ -125,6 +135,45 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-mono;
+    @apply font-sans;
+    }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+    }
+}
+
+/* Scrollbars follow the brand theme: warm ink on cream, cream on ink in dark. */
+:root {
+    --scrollbar-thumb: oklch(0.4 0.055 60 / 40%);
+    --scrollbar-thumb-hover: oklch(0.4 0.055 60 / 60%);
+}
+.dark {
+    --scrollbar-thumb: oklch(0.976 0.012 75 / 28%);
+    --scrollbar-thumb-hover: oklch(0.976 0.012 75 / 45%);
+}
+
+/* Chromium/Safari: rounded pill thumb, invisible track. */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    background-clip: padding-box;
+}
+
+/* Firefox (no ::-webkit-scrollbar): tint the native scrollbar instead. */
+@supports not selector(::-webkit-scrollbar) {
+    html {
+        scrollbar-color: var(--scrollbar-thumb) transparent;
     }
 }
