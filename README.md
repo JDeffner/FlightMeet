@@ -1,69 +1,119 @@
-# CodeIgniter 4 Application Starter
+<div align="center">
 
-## What is CodeIgniter?
+<img src="frontend/public/android-chrome-192x192.png" alt="FlightMeet logo" width="96" height="96">
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+# FlightMeet
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+**A community platform for paraglider pilots: find flying meets, team up in groups, chat, and check launch-site weather.**
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+[![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](frontend)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white)](frontend)
+[![CodeIgniter 4](https://img.shields.io/badge/CodeIgniter-4.7-ee4623?logo=codeigniter&logoColor=white)](app)
+[![PHP 8.2](https://img.shields.io/badge/PHP-8.2-777bb4?logo=php&logoColor=white)](composer.json)
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+[Features](#features) • [Architecture](#architecture) • [Getting started](#getting-started) • [Documentation](#documentation)
 
-## Installation & updates
+</div>
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## Overview
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+FlightMeet helps pilots organize shared flying days. Browse upcoming **flying meets** by region and experience level, join with one click, coordinate in **flight groups** and **chat**, and check the **weather forecast** for any launch site before you commit, all in one place.
 
-## Setup
+The app is a decoupled two-tier application living in a single repository:
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+- **`frontend/`**: a React 19 single-page application (Vite + TypeScript) that renders all UI.
+- **`app/`**: a CodeIgniter 4 backend that serves a JSON-only API under `/api/*` (no server-rendered HTML).
 
-## Important Change with index.php
+## Features
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+- **Meet discovery**: all flying meets as cards with title, flying spot, region, date and time, experience level, participant count, and open/full status. Instant search (title, spot, region, description) combined with region and experience-level filters.
+- **Join / leave**: one-click participation with immediate UI feedback; full meets are locked automatically. Participant counts and meet status are always derived, never stored.
+- **Meet management**: create and edit meets with validation, pick the flying spot on an interactive map.
+- **Flight groups**: regional and interest-based groups pilots can join, each with its own chat channel.
+- **Chat**: a global pilot channel plus per-group channels, available as a full page or a popover launcher on every page.
+- **Weather**: Open-Meteo powered forecasts with geocoding search, wind visualization, and pilot-submitted weather reports on a map (Leaflet with marker clustering).
+- **Accounts & profiles**: registration and session login via CodeIgniter Shield, public pilot profiles, and a role model with `user`, `moderator`, and `admin` groups.
+- **Admin dashboard**: user management with server-side paging, search, filtering, and sorting (TanStack Table).
+- **Landing page**: an animated FlightMeet showcase built with GSAP scroll animations.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Architecture
 
-**Please** read the user guide for a better explanation of how CI4 works!
+```
+┌─────────────────────────┐        HTTP / JSON        ┌──────────────────────────┐
+│  React SPA (frontend/)  │  ───────────────────────► │  CodeIgniter 4 (app/)    │
+│  React 19 + Vite + TS   │   /api/*  (fetch, cookies)│  PHP 8.2, JSON-API-only  │
+│  react-router-dom, TSX  │  ◄─────────────────────── │  Shield auth, MariaDB    │
+└─────────────────────────┘                           └──────────────────────────┘
+         built into  public/  ◄── same origin in prod ──►  served by Apache/CI
+```
 
-## Repository Management
+**Frontend:** React 19, TypeScript, Vite, react-router-dom v7, Tailwind CSS 4, shadcn components on Base UI, Phosphor icons, TanStack Table, GSAP, Leaflet.
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+**Backend:** CodeIgniter 4.7 on PHP 8.2, CodeIgniter Shield for session-based auth with CSRF protection, MariaDB, Open-Meteo as the weather and geocoding provider.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+In production the SPA is compiled into `public/` and served from the same origin as the API: `public/.htaccess` routes `api/*` to CodeIgniter and every other path to the SPA's `index.html`, where React Router takes over.
 
-## Server Requirements
+## Getting started
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+### Prerequisites
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- [PHP](https://www.php.net) 8.2+ with the `intl` and `mysqlnd` extensions
+- [Composer](https://getcomposer.org)
+- [Node.js](https://nodejs.org) 20+ and [pnpm](https://pnpm.io)
+- A MariaDB/MySQL server (e.g. via [XAMPP](https://www.apachefriends.org))
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+### Setup
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+1. **Install dependencies**
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+   ```bash
+   composer install
+   cd frontend && pnpm install && cd ..
+   ```
+
+2. **Configure the environment**
+
+   Copy `env` to `.env` and set your database credentials (`database.default.*`). The default database name is `db_team11`.
+
+3. **Create the schema and sample data**
+
+   ```bash
+   php spark migrate --all
+   php spark db:seed FlightMeetSeeder
+   ```
+
+   The seeder creates sample pilots, meets, groups, and chat messages.
+
+### Run in development
+
+Start the API and the frontend dev server in two terminals:
+
+```bash
+# Terminal 1: CodeIgniter API on http://localhost:8080
+php spark serve --host localhost --port 8080
+
+# Terminal 2: Vite dev server with HMR on http://localhost:5173
+cd frontend && pnpm dev
+```
+
+Open http://localhost:5173. The Vite dev server proxies `/api` and `/media` to the backend; override the target with `CI_BACKEND_URL` in `frontend/.env.local` if port 8080 is taken.
+
+### Build for production
+
+```bash
+cd frontend && pnpm build
+```
+
+This compiles the SPA into `public/`, ready to be served by Apache alongside the CodeIgniter API.
+
+> [!IMPORTANT]
+> A frontend source change only appears in the served app after `pnpm build`. In development, use the Vite server instead; the `public/` build is for production only.
+
+## Documentation
+
+| Document | Contents |
+| --- | --- |
+| [`docs/SPECIFICATION.md`](docs/SPECIFICATION.md) | Functional requirements for the FlightMeet platform |
+| [`docs/API_FLIGHTMEET.md`](docs/API_FLIGHTMEET.md) | JSON API contract for meets, groups, and chat |
+| [`docs/AUTH.md`](docs/AUTH.md) | Auth and permissions model (Shield, roles, CSRF) |
+| [`CLAUDE.md`](CLAUDE.md) | Architecture overview and coding conventions |
