@@ -52,7 +52,7 @@ interface ApiOptions {
   body?: unknown
 }
 
-export async function api<T>(path: string, options: ApiOptions = {}): Promise<T> {
+export async function api<T>(path: string, options: ApiOptions = {}, retried = false): Promise<T> {
   const method = options.method ?? 'GET'
   const headers: Record<string, string> = {}
 
@@ -73,7 +73,20 @@ export async function api<T>(path: string, options: ApiOptions = {}): Promise<T>
     // leere Antwort ist ok
   }
 
-  if (!res.ok) throw new ApiError(res.status, data)
+  if (!res.ok) {
+    // 403 auf einem mutierenden Request heißt meist: CSRF-Token veraltet,
+    // weil die Server-Session abgelaufen ist (in-memory Token überlebt sie).
+    // Einmal frische Session + Token via /me holen und den Request wiederholen.
+    if (res.status === 403 && method !== 'GET' && !retried) {
+      const me = await fetch(apiUrl('/api/auth/me'), { credentials: 'same-origin' })
+      const meData = (await me.json().catch(() => null)) as { csrf?: CsrfInfo } | null
+      if (meData?.csrf) {
+        setCsrf(meData.csrf)
+        return api<T>(path, options, true)
+      }
+    }
+    throw new ApiError(res.status, data)
+  }
 
   // Server kann einen (neuen) CSRF-Token mitliefern — z.B. nach Login,
   // weil Shield die Session dann neu erzeugt.
