@@ -78,29 +78,35 @@ function describe(code: number): [string, string] {
 }
 
 export function MeetWeatherPanel({ meetId, meetDate }: { meetId: number; meetDate: string }) {
-  const [weather, setWeather] = useState<WeatherPayload | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
+  // Keyed by the meet id it was fetched for: when `meetId` changes, the derived
+  // values below fall back to the loading state until the new fetch lands — no
+  // state reset inside the effect needed.
+  const [result, setResult] = useState<{
+    meetId: number
+    weather: WeatherPayload | null
+    error: string | null
+  } | null>(null)
+  const fetched = result && result.meetId === meetId ? result : null
+  const weather = fetched?.weather ?? null
+  const error = fetched?.error ?? null
+  const loading = !fetched
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    setError(null)
-    setWeather(null)
     api<WeatherPayload>(`/api/meets/${meetId}/weather`)
       .then((data) => {
-        if (!cancelled) setWeather(data)
+        if (!cancelled) setResult({ meetId, weather: data, error: null })
       })
       .catch((err) => {
         if (cancelled) return
-        setError(
-          err instanceof ApiError && err.status === 409
-            ? "This meet's flying spot has no coordinates yet, so there is no forecast."
-            : 'The weather service is not reachable right now. Check back a little later.',
-        )
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
+        setResult({
+          meetId,
+          weather: null,
+          error:
+            err instanceof ApiError && err.status === 409
+              ? "This meet's flying spot has no coordinates yet, so there is no forecast."
+              : 'The weather service is not reachable right now. Check back a little later.',
+        })
       })
     return () => {
       cancelled = true

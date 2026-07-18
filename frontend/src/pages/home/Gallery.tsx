@@ -104,34 +104,34 @@ const DRIFT = [
 export function Gallery() {
   const rootRef = useRef<HTMLElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
-  const tweens = useRef<(gsap.core.Tween | undefined)[]>([])
+  // Hover handler, wired up inside useGSAP where the tweens live. Eases the
+  // hovered row to a stop instead of freezing it mid-frame.
+  const setRowSpeed = useRef<(row: number, speed: number) => void>(() => {})
   const [active, setActive] = useState<Shot | null>(null)
   const reduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  const { contextSafe } = useGSAP(
-    () => {
-      if (reduced) return
-      gsap.utils
+  useGSAP(
+    (_context, contextSafe) => {
+      if (reduced || !contextSafe) return
+      const tweens = gsap.utils
         .toArray<HTMLElement>('.fm-wall-track', rootRef.current)
-        .forEach((track, i) => {
+        .map((track, i) => {
           const d = DRIFT[i]
-          tweens.current[i] = gsap.fromTo(
+          return gsap.fromTo(
             track,
             { xPercent: d.from },
             { xPercent: d.to, duration: d.duration, ease: 'none', repeat: -1 },
           )
         })
+      setRowSpeed.current = contextSafe((row: number, speed: number) => {
+        const tween = tweens[row]
+        if (tween) gsap.to(tween, { timeScale: speed, duration: 0.45, overwrite: true })
+      })
     },
     { scope: rootRef },
   )
-
-  // Hover eases the hovered row to a stop instead of freezing it mid-frame.
-  const setRowSpeed = contextSafe((row: number, speed: number) => {
-    const tween = tweens.current[row]
-    if (tween) gsap.to(tween, { timeScale: speed, duration: 0.45, overwrite: true })
-  })
 
   useEffect(() => {
     if (!active) return
@@ -160,8 +160,8 @@ export function Gallery() {
           <div
             key={row}
             className={`fm-wall-row${reduced ? ' fm-wall-row--static' : ''}`}
-            onMouseEnter={reduced ? undefined : () => setRowSpeed(row, 0)}
-            onMouseLeave={reduced ? undefined : () => setRowSpeed(row, 1)}
+            onMouseEnter={reduced ? undefined : () => setRowSpeed.current(row, 0)}
+            onMouseLeave={reduced ? undefined : () => setRowSpeed.current(row, 1)}
           >
             <div className="fm-wall-track">
               {/* Second copy makes the 0 to -50% loop seamless; skipped for the

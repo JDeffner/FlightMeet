@@ -34,7 +34,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
-import { CapacityBar, formatMeetDate, JoinedBadge, LevelBadge, StatusBadge } from './shared'
+import { formatMeetDate } from './format'
+import { CapacityBar, JoinedBadge, LevelBadge, StatusBadge } from './shared'
 
 function matchesQuery(meet: MeetSummary, query: string): boolean {
   const q = query.trim().toLowerCase()
@@ -102,7 +103,6 @@ export function MeetsPage() {
   }
 
   function load() {
-    setError(null)
     api<{ data: MeetSummary[] }>('/api/meets')
       .then((res) => setMeets(res.data))
       .catch((err) =>
@@ -219,6 +219,7 @@ export function MeetsPage() {
               className="mt-2"
               onClick={() => {
                 setMeets(null)
+                setError(null)
                 load()
               }}
             >

@@ -1,21 +1,9 @@
-// Small shared helpers for the meets pages (FR-3…FR-19).
+// Small shared components for the meets pages (FR-3…FR-19).
+// (Non-component helpers live in format.ts so fast refresh keeps working.)
 import { CheckCircleIcon } from '@phosphor-icons/react'
 import { Badge } from '@/components/ui/badge'
 import type { Level, MeetSummary } from '@/lib/types'
 import { cn } from '@/lib/utils'
-
-/** "2026-07-19" + "17:30" → "Sun, 19 Jul 2026 · 17:30". */
-export function formatMeetDate(date: string, time: string): string {
-  const d = new Date(`${date}T${time || '00:00'}`)
-  if (Number.isNaN(d.getTime())) return `${date} · ${time}`
-  const day = d.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  })
-  return `${day} · ${time}`
-}
 
 export function LevelBadge({ level }: { level: Level }) {
   return <Badge variant="outline">{level}</Badge>

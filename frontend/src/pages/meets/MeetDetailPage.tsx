@@ -26,8 +26,9 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Spinner } from '@/components/ui/spinner'
+import { formatMeetDate } from './format'
 import { MeetWeatherPanel } from './MeetWeatherPanel'
-import { CapacityBar, formatMeetDate, JoinedBadge, LevelBadge, StatusBadge } from './shared'
+import { CapacityBar, JoinedBadge, LevelBadge, StatusBadge } from './shared'
 
 interface LocationState {
   /** Query string of the overview ("?q=…") — restored by the back link (FR-8). */
@@ -44,8 +45,16 @@ export function MeetDetailPage() {
   const state = (location.state ?? {}) as LocationState
   const { user, isAdmin } = useAuth()
 
-  const [meet, setMeet] = useState<MeetDetail | null>(null)
-  const [loadError, setLoadError] = useState<string | null>(null)
+  // Keyed by the meet id it belongs to: navigating to another meet makes the
+  // derived `meet`/`loadError` fall back to the loading state automatically,
+  // without a state reset inside the effect.
+  const [loaded, setLoaded] = useState<{
+    id: string | undefined
+    meet: MeetDetail | null
+    error: string | null
+  } | null>(null)
+  const meet = loaded && loaded.id === id ? loaded.meet : null
+  const loadError = loaded && loaded.id === id ? loaded.error : null
   const [busy, setBusy] = useState(false)
   const [notice, setNotice] = useState<string | null>(
     state.created
@@ -60,21 +69,22 @@ export function MeetDetailPage() {
 
   useEffect(() => {
     let cancelled = false
-    setMeet(null)
-    setLoadError(null)
     api<{ meet: MeetDetail }>(`/api/meets/${id}`)
       .then((res) => {
-        if (!cancelled) setMeet(res.meet)
+        if (!cancelled) setLoaded({ id, meet: res.meet, error: null })
       })
       .catch((err) => {
         if (cancelled) return
-        setLoadError(
-          err instanceof ApiError && err.status === 404
-            ? 'This meet does not exist (anymore).'
-            : err instanceof ApiError
-              ? err.message
-              : 'Could not load this meet. Is the backend running?',
-        )
+        setLoaded({
+          id,
+          meet: null,
+          error:
+            err instanceof ApiError && err.status === 404
+              ? 'This meet does not exist (anymore).'
+              : err instanceof ApiError
+                ? err.message
+                : 'Could not load this meet. Is the backend running?',
+        })
       })
     return () => {
       cancelled = true
@@ -91,7 +101,7 @@ export function MeetDetailPage() {
       const res = await api<{ meet: MeetDetail }>(`/api/meets/${meet.id}/join`, {
         method: leaving ? 'DELETE' : 'POST',
       })
-      setMeet(res.meet)
+      setLoaded({ id, meet: res.meet, error: null })
       setNotice(
         leaving
           ? 'You have left this meet. Your spot is free for another pilot.'
