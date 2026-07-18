@@ -77,6 +77,10 @@ php spark serve --host localhost --port 8080
 
 # Frontend (Vite dev server + HMR; proxies /api and /media to the backend)
 cd frontend && pnpm install && pnpm dev     # http://localhost:5173
+
+# Backend tests (feature tests for the JSON API live in tests/api/,
+# in-memory SQLite — no MariaDB needed; base class tests/_support/ApiTestCase.php)
+composer test
 ```
 
 - The Vite proxy target is `CI_BACKEND_URL` (default `http://localhost:8080`),
