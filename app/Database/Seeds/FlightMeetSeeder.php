@@ -10,8 +10,9 @@ use CodeIgniter\Database\Seeder;
  * Sample FlightMeet content: test pilots, groups, upcoming meets with real
  * coordinates, participants, and chat messages (global + per group).
  *
- * Idempotent: aborts if meets already exist. Creates pilot1..pilot6
- * (password "password123") only when those usernames are missing.
+ * Idempotent: aborts if meets already exist. Creates pilot1..pilot6 only when
+ * those usernames are missing; their shared password comes from
+ * `seed.pilotPassword` or is generated and printed once.
  */
 class FlightMeetSeeder extends Seeder
 {
@@ -34,7 +35,14 @@ class FlightMeetSeeder extends Seeder
             ['pilot5', 'Aylin',  'Schwalbe','Trier'],
             ['pilot6', 'Erik',   'Habicht', 'Freiburg'],
         ];
-        $hash = password_hash('password123', PASSWORD_DEFAULT);
+        $pilotPassword = (string) (env('seed.pilotPassword') ?? '');
+
+        if ($pilotPassword === '') {
+            $pilotPassword = bin2hex(random_bytes(12));
+            echo "Generated pilot1..pilot6 password: {$pilotPassword}  (shown once — store it now)\n";
+        }
+
+        $hash = password_hash($pilotPassword, PASSWORD_DEFAULT);
         $ids  = [];
 
         foreach ($pilots as [$username, $vorname, $nachname, $ort]) {

@@ -27,6 +27,17 @@
 # app.CSPEnabled = false
 
 #--------------------------------------------------------------------
+# SEED PASSWORDS
+#--------------------------------------------------------------------
+# Passwords for the accounts created by the database seeders. Leave them
+# unset and the seeder generates a random password and prints it once.
+
+# seed.adminPassword =
+# seed.moderatorPassword =
+# seed.userPassword =
+# seed.pilotPassword =
+
+#--------------------------------------------------------------------
 # DATABASE
 #--------------------------------------------------------------------
 

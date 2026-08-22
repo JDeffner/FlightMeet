@@ -27,14 +27,24 @@ Die 9999 Personen aus `fwe.sql` werden als reguläre `user` importiert
 ([`PersonenSeeder`](../app/Database/Seeds/PersonenSeeder.php)). Zusätzlich zwei
 Testkonten:
 
-| Login (E-Mail)            | Benutzername | Passwort         | Gruppe    |
-|---------------------------|--------------|------------------|-----------|
-| `admin@team11.local`      | `admin`      | `Admin123!`      | admin     |
-| `moderator@team11.local`  | `moderator`  | `Moderator123!`  | moderator |
+| Login (E-Mail)            | Benutzername | Gruppe    |
+|---------------------------|--------------|-----------|
+| `admin@team11.local`      | `admin`      | admin     |
+| `moderator@team11.local`  | `moderator`  | moderator |
 
-Alle importierten Personen: Passwort **`password123`**, E-Mail
+**Passwörter stehen nicht im Repository.** Der Seeder liest sie aus der
+Umgebung (`seed.adminPassword`, `seed.moderatorPassword`, `seed.userPassword`,
+`seed.pilotPassword` in `.env`). Ist ein Schlüssel nicht gesetzt, erzeugt der
+Seeder ein Zufallspasswort und gibt es **einmalig** während des Seed-Laufs aus.
+Wer diese Ausgabe nicht mitschreibt, setzt das Passwort neu, statt es zu suchen.
+
+Alle importierten Personen teilen sich ein Passwort (`seed.userPassword`), E-Mail
 `<benutzername-transliteriert>@example.com` (z.B. `HerbertBürgers` →
 `herbertburgers@example.com`). Login geht mit **E-Mail oder Benutzername**.
+
+> Auf einer bereits ausgerollten Instanz, die mit den früheren fest
+> eingetragenen Passwörtern geseedet wurde, müssen diese Konten sofort neu
+> gesetzt oder deaktiviert werden (`users.active = 0`).
 
 > Profilfelder (Vorname, Nachname, Straße, PLZ, Ort) hängen an Shields `users`-Tabelle
 > (Migration `AddProfileFieldsToUsers`). Die Original-`personen`-Tabelle bleibt unangetastet.
