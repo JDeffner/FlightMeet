@@ -82,8 +82,8 @@ php spark serve --host localhost --port 8082
 cd frontend && pnpm install && pnpm dev
 ```
 
-Dann http://localhost:5173/ öffnen und mit `admin@team11.local` / `Admin123!`
-anmelden → `/admin/dashboard`.
+Dann http://localhost:5173/ öffnen und mit `admin@team11.local` und dem beim
+Seed-Lauf ausgegebenen Admin-Passwort anmelden → `/admin/dashboard`.
 
 Der Backend-Proxy-Port ist in [`frontend/.env.local`](../frontend/.env.local)
 (`VITE_API_TARGET`) überschreibbar.
