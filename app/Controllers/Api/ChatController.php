@@ -21,7 +21,7 @@ class ChatController extends BaseController
 
     /**
      * GET /api/chat/messages?groupId={id}&after={messageId}
-     * Oldest→newest; capped at the latest 100 when `after` is absent.
+     * Oldest→newest; capped at 100 messages per request in both branches.
      */
     public function index(): ResponseInterface
     {
@@ -39,17 +39,21 @@ class ChatController extends BaseController
             $params[] = $groupId;
         }
 
-        $after = $this->request->getGet('after');
+        $after   = $this->request->getGet('after');
+        $reverse = false;
+
+        // Both branches are capped: `after=0` would otherwise return the
+        // whole channel. The client keeps paging with the new last id.
+        $limit = 'LIMIT ' . self::NO_AFTER_CAP;
 
         if ($after !== null && $after !== '') {
             $where .= ' AND ms.id > ?';
             $params[] = (int) $after;
             $order    = 'ORDER BY ms.id ASC';
-            $limit    = '';
         } else {
             // Latest N, reversed below to oldest→newest.
-            $order = 'ORDER BY ms.id DESC';
-            $limit = 'LIMIT ' . self::NO_AFTER_CAP;
+            $order   = 'ORDER BY ms.id DESC';
+            $reverse = true;
         }
 
         $rows = db_connect()->query(
@@ -61,7 +65,7 @@ class ChatController extends BaseController
             $params,
         )->getResultArray();
 
-        if ($limit !== '') {
+        if ($reverse) {
             $rows = array_reverse($rows);
         }
 
