@@ -23,8 +23,13 @@
 # app.baseURL = ''
 # If you have trouble with `.`, you could also use `_`.
 # app_baseURL = ''
-# app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
+
+# On an HTTPS deployment set BOTH of these to true, so the session cookie and
+# the CSRF token never travel over plain http://. Leave them false for local
+# http://localhost development.
+# app.forceGlobalSecureRequests = true
+# cookie.secure = true
 
 #--------------------------------------------------------------------
 # SEED PASSWORDS
