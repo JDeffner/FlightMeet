@@ -11,6 +11,9 @@ use CodeIgniter\Shield\Entities\User;
 
 class AuthController extends BaseController
 {
+    /** Login attempts allowed per minute, per IP and per submitted identifier. */
+    private const LOGIN_ATTEMPTS_PER_MINUTE = 5;
+
     /**
      * GET /api/auth/me
      * Returns the current session state. Public — the SPA calls this on
@@ -48,6 +51,16 @@ class AuthController extends BaseController
             ]);
         }
 
+        // Rate limit before touching the authenticator: Shield throttles only
+        // in its own LoginController, which this JSON API does not use.
+        // Two buckets so one attacker cannot lock out a single account, and a
+        // botnet cannot spray one account from many addresses.
+        if (($retry = $this->throttleLogin($login)) !== null) {
+            return $this->response->setStatusCode(429)
+                ->setHeader('Retry-After', (string) $retry)
+                ->setJSON(['error' => 'Too many login attempts. Please try again later.']);
+        }
+
         if (auth()->loggedIn()) {
             auth()->logout();
         }
@@ -74,6 +87,28 @@ class AuthController extends BaseController
                 'token'  => csrf_hash(),
             ],
         ]);
+    }
+
+    /**
+     * Rate limits the login endpoint with CodeIgniter's throttler.
+     * Returns the seconds the caller should wait, or null to proceed.
+     */
+    private function throttleLogin(string $login): ?int
+    {
+        $throttler = service('throttler');
+
+        $buckets = [
+            'login-ip-' . $this->request->getIPAddress(),
+            'login-id-' . mb_strtolower($login),
+        ];
+
+        foreach ($buckets as $bucket) {
+            if ($throttler->check(md5($bucket), self::LOGIN_ATTEMPTS_PER_MINUTE, MINUTE) === false) {
+                return max(1, (int) ceil($throttler->getTokenTime()));
+            }
+        }
+
+        return null;
     }
 
     /**
