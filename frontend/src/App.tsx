@@ -1,5 +1,6 @@
 import './App.css'
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { PreviewTools } from './preview/PreviewTools'
 import { AuthProvider } from '@/lib/auth'
 import { NavIsland } from '@/components/chrome/NavIsland'
 import { SiteFooter } from '@/components/chrome/SiteFooter'
@@ -23,6 +24,8 @@ import { PilotProfilePage } from '@/pages/pilots/PilotProfilePage'
 
 // BASE_URL is '/public/' in production builds and '/' in dev (see vite.config.ts).
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
+const pagesPreview = import.meta.env.MODE === 'pages'
+const Router = pagesPreview ? HashRouter : BrowserRouter
 
 // Shared FlightMeet chrome (nav island + hills footer) for every app page. Only
 // the marketing landing page ("/") keeps its own standalone layout. The nav is
@@ -41,7 +44,7 @@ function AppChrome() {
 
 function App() {
   return (
-    <BrowserRouter basename={basename}>
+    <Router basename={pagesPreview ? '/' : basename}>
       <AuthProvider>
         <Routes>
           {/* Standalone marketing landing page (own layout) */}
@@ -105,8 +108,9 @@ function App() {
         {/* Floating chat bubble on every page (hides itself on /chat, /login,
             /register and when logged out). */}
         <ChatLauncher />
+        {pagesPreview && <PreviewTools />}
       </AuthProvider>
-    </BrowserRouter>
+    </Router>
   )
 }
 

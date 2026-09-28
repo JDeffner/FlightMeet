@@ -5,9 +5,10 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
+  const pages = mode === 'pages'
   // In Produktion läuft die App unter https://team11.wi1cm.uni-trier.de/public/.
   // Im Dev-Server (vite serve) bleibt sie unter / erreichbar.
-  const base = command === 'build' ? '/public/' : '/'
+  const base = pages ? '/' : command === 'build' ? '/public/' : '/'
 
   // Backend-Adresse für den Dev-Proxy; per CI_BACKEND_URL (z. B. in .env.local)
   // überschreibbar, falls Port 8080 belegt ist.
@@ -22,8 +23,8 @@ export default defineConfig(({ command, mode }) => {
     ],
     // Build direkt in das CodeIgniter public/-Verzeichnis, ohne index.php zu löschen.
     build: {
-      outDir: '../public',
-      emptyOutDir: false,
+      outDir: pages ? 'dist' : '../public',
+      emptyOutDir: pages,
     },
     server: {
       // PORT wird z.B. von Tooling gesetzt; Standard bleibt 5173.
@@ -34,9 +35,10 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+      alias: [
+        ...(pages ? [{ find: '@/lib/api', replacement: path.resolve(__dirname, 'src/preview/api.ts') }] : []),
+        { find: '@', replacement: path.resolve(__dirname, './src') },
+      ],
     },
   }
 })

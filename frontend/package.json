@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --mode pages",
+    "preview:pages": "vite preview --mode pages",
+    "test:preview": "node --test tests/preview.test.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
