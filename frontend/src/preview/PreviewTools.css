@@ -1,0 +1,6 @@
+/* Keep FlightMeet's chat and dialogs above the demo controls. */
+.demo-panel { z-index: 30; }
+
+@media (max-width: 359px) {
+  .demo-panel { left: max(8px, env(safe-area-inset-left)); }
+}

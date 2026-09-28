@@ -1,11 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useAuth } from '../lib/auth'
 import { STORAGE_KEY } from './api'
+import './overlay.js'
+import './demo.css'
+import './PreviewTools.css'
+import type { DemoPanelHandle } from './overlay'
 
 export function PreviewTools() {
-  const { user, login } = useAuth()
-  const [error, setError] = useState('')
-  const [busy, setBusy] = useState(false)
+  const { user, loading, isAdmin, login, logout } = useAuth()
+  const panel = useRef<DemoPanelHandle | null>(null)
+  const role = loading ? null : !user ? 'guest' : isAdmin ? 'admin' : 'pilot'
+
+  useEffect(() => {
+    const controls = window.DemoPanel.mount({
+      project: 'FlightMeet',
+      homeUrl: 'https://jdeffner.com',
+      roles: [{ id: 'guest', label: 'Guest' }, { id: 'pilot', label: 'Pilot' }, { id: 'admin', label: 'Admin' }],
+      help: 'Switch roles to explore. Changes and chat stay in this browser. Reset restores the sample data. Weather is simulated, not for flight planning.',
+      async onRole(nextRole) {
+        const path = window.location.hash.slice(1).split('?')[0]
+        const adminPage = path.startsWith('/admin/')
+        const accountPage = ['/profile', '/chat', '/meets/new'].includes(path) || /^\/meets\/[^/]+\/edit$/.test(path)
+        if (nextRole === 'guest') await logout()
+        else await login(nextRole === 'admin' ? 'admin' : 'demo', 'demo1234', true)
+        if ((nextRole !== 'admin' && adminPage) || (nextRole === 'guest' && accountPage) || ['/login', '/register'].includes(path)) {
+          window.location.hash = '#/meets'
+        }
+        // Reload data for the chosen identity while preserving local edits.
+        window.location.reload()
+      },
+      onReset() {
+        localStorage.removeItem(STORAGE_KEY)
+        window.location.assign(import.meta.env.BASE_URL)
+      },
+    })
+    panel.current = controls
+    return () => { controls.destroy(); panel.current = null }
+  }, [login, logout])
+
+  useEffect(() => { panel.current?.setRole(role) }, [role])
 
   useEffect(() => {
     // Plain section anchors must scroll without replacing the hash-router route.
@@ -23,38 +56,5 @@ export function PreviewTools() {
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  async function tryAccount(account: string) {
-    setBusy(true)
-    setError('')
-    try {
-      await login(account, 'demo1234', true)
-      // Refresh page data that was loaded for the previous demo identity.
-      window.location.reload()
-    }
-    catch (error) { setError(error instanceof Error ? error.message : 'Could not load the demo account.') }
-    finally { setBusy(false) }
-  }
-
-  function reset() {
-    try { localStorage.removeItem(STORAGE_KEY); window.location.reload() }
-    catch { setError('The browser could not reset this preview. Check its site storage settings.') }
-  }
-
-  return (
-    <aside className="fixed bottom-4 left-4 z-50 max-w-[calc(100vw-6.5rem)] rounded-2xl border border-border bg-background/95 p-3 text-xs text-foreground shadow-lg backdrop-blur-md sm:max-w-sm" aria-label="Preview controls">
-      <details>
-        <summary className="cursor-pointer font-semibold">Interactive preview · sample data</summary>
-        <p className="mt-2 max-w-72">Changes stay in this browser. Use made-up details. Passwords are not checked or saved. Chat is not shared with other visitors.</p>
-        <p className="mt-2 max-w-72">Weather is simulated. Do not use it for flight planning. Search Trier, Kandel, Brauneck, Zeltingen, or Freiburg.</p>
-        <p className="mt-2">Log in with <strong>demo</strong> or <strong>admin</strong> and any made-up password.</p>
-      </details>
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
-        <button className="font-medium underline underline-offset-2 disabled:opacity-50" disabled={busy} onClick={() => void tryAccount('demo')}>Try as pilot</button>
-        <button className="font-medium underline underline-offset-2 disabled:opacity-50" disabled={busy} onClick={() => void tryAccount('admin')}>Try as admin</button>
-        <button className="underline underline-offset-2" onClick={reset}>Reset demo</button>
-      </div>
-      <p className="mt-2 text-muted-foreground">{user ? `Signed in as ${user.username}. ` : ''}Sample weather, not a flight forecast.</p>
-      {error && <p role="alert" className="mt-2 text-destructive">{error}</p>}
-    </aside>
-  )
+  return null
 }
