@@ -71,7 +71,7 @@ export function createSeedState(): DemoState {
     ['Schauinsland Morning Flow', 'Schauinsland Launch', 'Black Forest', 12, '09:30', 'All levels', 15, 47.9117, 7.8996, 1, [1], 'Your own sample meet. Use Edit to try the organizer controls and choose a location on the map.'],
   ]
   return {
-    version: 1, currentUserId: null, nextMessageId: 5, users,
+    version: 1, currentUserId: 1, nextMessageId: 5, users,
     meets: specs.map(([title, spot, region, days, time, level, maxParticipants, latitude, longitude, createdBy, participants, description], i) => ({
       id: i + 1, title, spot, region, date: dateAfter(days), time, level, maxParticipants,
       latitude, longitude, createdBy, participants, description,

@@ -12,8 +12,24 @@ function setup() {
 }
 const status = expected => error => error instanceof ApiError && error.status === expected
 
+test('fresh and reset demos start as the pilot, while saved account choices are respected', async () => {
+  const { request, login, storage, values } = setup()
+  const initial = await request('/api/auth/me')
+  assert.equal(initial.authenticated, true)
+  assert.equal(initial.user.username, 'demo')
+  assert.equal(initial.user.subscription_tier, 'pilot')
+  assert.equal(initial.user.permissions['admin.access'], false)
+  await login('admin')
+  assert.equal((await createDemoApi(storage)('/api/auth/me')).user.username, 'admin')
+  await request('/api/auth/logout', { method: 'POST' })
+  assert.equal((await createDemoApi(storage)('/api/auth/me')).authenticated, false)
+  values.delete(STORAGE_KEY)
+  assert.equal((await createDemoApi(storage)('/api/auth/me')).user.username, 'demo')
+})
+
 test('guests can browse sample data but cannot mutate it', async () => {
   const { request } = setup()
+  await request('/api/auth/logout', { method: 'POST' })
   assert.equal((await request('/api/auth/me')).authenticated, false)
   assert.equal((await request('/api/meets')).data.length, 5)
   assert.equal((await request('/api/groups')).data.length, 4)
@@ -109,6 +125,6 @@ test('invalid storage does not break browsing; failed writes do not report succe
   values.set(STORAGE_KEY, '{broken')
   assert.equal((await request('/api/meets')).data.length, 5)
   const unavailable = createDemoApi({ getItem: () => null, setItem: () => { throw new Error('Storage is full') } })
-  await assert.rejects(unavailable('/api/auth/login', { method: 'POST', body: { login: 'demo', password: 'demo' } }), status(507))
-  assert.equal((await unavailable('/api/auth/me')).authenticated, false)
+  await assert.rejects(unavailable('/api/auth/login', { method: 'POST', body: { login: 'admin', password: 'demo' } }), status(507))
+  assert.equal((await unavailable('/api/auth/me')).user.username, 'demo')
 })

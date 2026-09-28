@@ -4,7 +4,7 @@ The `preview/github-pages` branch publishes an interactive demo at https://fligh
 
 The preview uses the existing interface with sample data stored in the visitor's browser. Meets, groups, chat, profiles, registration, and admin controls work with this local data. Changes are not shared between visitors. No PHP server or database is contacted.
 
-Use **Try as pilot** or **Try as admin** in the preview controls. You can also log in as `demo` or `admin` with any made-up password. Registration is a simulation. Use example details. Passwords are not checked or stored. **Reset demo** clears the preview data for this browser and restores the sample records.
+Fresh visits start signed in as Alex Pilot (`demo`). Use **Try as pilot** or **Try as admin** in the preview controls to switch accounts. You can also log in as `demo` or `admin` with any made-up password. Registration is a simulation. Use example details. Passwords are not checked or stored. **Reset demo** restores the sample records and signs you in as the pilot. A saved account choice or explicit logout is preserved across page reloads.
 
 All weather in the preview is simulated. Do not use it for flight planning. Weather search includes Trier, Kandel, Brauneck, Zeltingen, and Freiburg. Map tiles and web fonts need an internet connection. Legal and support footer links remain the existing placeholders.
 
