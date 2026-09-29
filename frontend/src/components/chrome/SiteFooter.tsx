@@ -11,7 +11,6 @@ const NAV_LINKS = [
 ]
 
 const PLACEHOLDER_COLUMNS = [
-  { title: 'Legal', links: ['Impressum', 'Datenschutz', 'AGB'] },
   { title: 'Support', links: ['Contact', 'FAQ', 'Safety guidelines'] },
   { title: 'Follow', links: ['Instagram', 'YouTube'] },
 ]
@@ -91,6 +90,12 @@ export function SiteFooter({ variant = 'app' }: { variant?: 'landing' | 'app' })
                 {link.label}
               </Link>
             ))}
+          </div>
+          <div className="fm-footer-col">
+            <span className="fm-footer-col-title">Legal</span>
+            <a href="https://jdeffner.com/impressum">Impressum</a>
+            <a href="https://jdeffner.com/datenschutz#flightmeet">Datenschutz / Privacy</a>
+            <a href="/licenses/credits.txt">Font credits</a>
           </div>
           {PLACEHOLDER_COLUMNS.map((col) => (
             <div key={col.title} className="fm-footer-col">

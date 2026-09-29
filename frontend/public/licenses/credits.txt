@@ -1,0 +1,14 @@
+FlightMeet website fonts
+
+Instrument Sans, Bricolage Grotesque and JetBrains Mono are distributed under the SIL Open Font License 1.1. Their full copyright and licence notices are provided in this directory:
+
+- instrument-sans-OFL.txt
+- bricolage-grotesque-OFL.txt
+- jetbrains-mono-OFL.txt
+
+Sources:
+https://github.com/google/fonts/tree/main/ofl/instrumentsans
+https://github.com/google/fonts/tree/main/ofl/bricolagegrotesque
+https://github.com/google/fonts/tree/main/ofl/jetbrainsmono
+
+The map credits are displayed on each map: OpenStreetMap contributors, https://www.openstreetmap.org/copyright
